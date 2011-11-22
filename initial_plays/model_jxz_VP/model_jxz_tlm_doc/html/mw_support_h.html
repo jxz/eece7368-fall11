@@ -1,0 +1,290 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - mw_support.h </TITLE>
+<STYLE> .LN { font-style: italic; color: #888888 } </STYLE>
+<STYLE> .CT { font-style: italic; color: #117755 } </STYLE>
+<STYLE> .PP { font-style: bold;   color: #992211 } </STYLE>
+<STYLE> .KW { font-style: bold;   color: #112266 } </STYLE>
+<STYLE> .DT { font-style: bold;   color: #112266 } </STYLE>
+<SCRIPT language="JavaScript" type="text/javascript">
+<!--
+function rtwHilite(aBlock,aParentSID) {
+ aParentSID = "";
+ try {
+    window.location.href="matlab: if ~isempty(which('private/rtwbindmodel')), rtwprivate rtwbindmodel '/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz.mdl' '/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_build' '', end; rtwprivate code2model "+aBlock+" "+aParentSID+";"
+ } catch (e) { 
+ }
+} // end rtwHilite
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="#eeeeee" TEXT="#1122aa" ONLOAD="if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window);} ">
+<P>
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
+<H4>File: <A HREF="file:///home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_build/tlm/mw_support.h" TARGET="rtwreport_document_frame">/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_build/tlm/mw_support.h</A></H4>
+<PRE id="RTWcode">
+<SPAN><A CLASS="LN" NAME="1">    1   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">ifndef</SPAN> __MW_SUPPORT_H__
+</SPAN><SPAN><A CLASS="LN" NAME="2">    2   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> __MW_SUPPORT_H__
+</SPAN><SPAN><A CLASS="LN" NAME="3">    3   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&lt;systemc&gt;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="4">    4   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&lt;map&gt;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="5">    5   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="6">    6   </A>template &lt;typename T&gt;
+</SPAN><SPAN><A CLASS="LN" NAME="7">    7   </A>  class <A HREF="mw_support_h.html#fcn_mw_comlink_fifo" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comlink_fifo');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comlink_fifo</FONT></A> : <A HREF="mw_support_tb_h.html#fcn_public" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_public');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">public</FONT></A> sc_core::sc_object
+</SPAN><SPAN><A CLASS="LN" NAME="8">    8   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="9">    9   </A> <A HREF="mw_support_tb_h.html#fcn_public" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_public');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">public</FONT></A>:
+</SPAN><SPAN><A CLASS="LN" NAME="10">   10   </A>  <A NAME="fcn_mw_comlink_fifo">mw_comlink_fifo</A>(<SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN>* name, <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> size) : sc_core::sc_object(name),
+</SPAN><SPAN><A CLASS="LN" NAME="11">   11   </A>    m_size(size)
+</SPAN><SPAN><A CLASS="LN" NAME="12">   12   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="13">   13   </A>    clear();
+</SPAN><SPAN><A CLASS="LN" NAME="14">   14   </A>    <SPAN CLASS="KW">if</SPAN> (m_size &gt; 0 ) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="15">   15   </A>      m_fifo = new T[m_size];
+</SPAN><SPAN><A CLASS="LN" NAME="16">   16   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="17">   17   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="18">   18   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="19">   19   </A>  ~<A HREF="mw_support_h.html#fcn_mw_comlink_fifo" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comlink_fifo');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comlink_fifo</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="20">   20   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="21">   21   </A>    clear();
+</SPAN><SPAN><A CLASS="LN" NAME="22">   22   </A>    delete [] m_fifo;
+</SPAN><SPAN><A CLASS="LN" NAME="23">   23   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="24">   24   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="25">   25   </A>  <SPAN CLASS="DT">void</SPAN> clear()
+</SPAN><SPAN><A CLASS="LN" NAME="26">   26   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="27">   27   </A>    m_free = m_size;
+</SPAN><SPAN><A CLASS="LN" NAME="28">   28   </A>    m_readindex = 0;
+</SPAN><SPAN><A CLASS="LN" NAME="29">   29   </A>    m_writeindex = 0;
+</SPAN><SPAN><A CLASS="LN" NAME="30">   30   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="31">   31   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="32">   32   </A>  bool nb_read(T* data)
+</SPAN><SPAN><A CLASS="LN" NAME="33">   33   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="34">   34   </A>    <SPAN CLASS="KW">if</SPAN> (m_free == m_size ) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="35">   35   </A>      <SPAN CLASS="KW">return</SPAN> false;
+</SPAN><SPAN><A CLASS="LN" NAME="36">   36   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="37">   37   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="38">   38   </A>    *data = m_fifo[m_readindex];
+</SPAN><SPAN><A CLASS="LN" NAME="39">   39   </A>    m_readindex = ( m_readindex + 1 ) % m_size;
+</SPAN><SPAN><A CLASS="LN" NAME="40">   40   </A>    m_free++;
+</SPAN><SPAN><A CLASS="LN" NAME="41">   41   </A>    <SPAN CLASS="KW">return</SPAN> true;
+</SPAN><SPAN><A CLASS="LN" NAME="42">   42   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="43">   43   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="44">   44   </A>  bool nb_write(<SPAN CLASS="DT">const</SPAN> T* data)
+</SPAN><SPAN><A CLASS="LN" NAME="45">   45   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="46">   46   </A>    <SPAN CLASS="KW">if</SPAN> (m_free == 0 ) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="47">   47   </A>      <SPAN CLASS="KW">return</SPAN> false;
+</SPAN><SPAN><A CLASS="LN" NAME="48">   48   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="49">   49   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="50">   50   </A>    m_fifo[m_writeindex] = *data;
+</SPAN><SPAN><A CLASS="LN" NAME="51">   51   </A>    m_writeindex = ( m_writeindex + 1 ) % m_size;
+</SPAN><SPAN><A CLASS="LN" NAME="52">   52   </A>    m_free--;
+</SPAN><SPAN><A CLASS="LN" NAME="53">   53   </A>    <SPAN CLASS="KW">return</SPAN> true;
+</SPAN><SPAN><A CLASS="LN" NAME="54">   54   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="55">   55   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="56">   56   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> get_num_available() <SPAN CLASS="DT">const</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="57">   57   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="58">   58   </A>    <SPAN CLASS="KW">return</SPAN> m_size-m_free;
+</SPAN><SPAN><A CLASS="LN" NAME="59">   59   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="60">   60   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="61">   61   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> get_num_free() <SPAN CLASS="DT">const</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="62">   62   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="63">   63   </A>    <SPAN CLASS="KW">return</SPAN> m_free;
+</SPAN><SPAN><A CLASS="LN" NAME="64">   64   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="65">   65   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="66">   66   </A> private:
+</SPAN><SPAN><A CLASS="LN" NAME="67">   67   </A>  T* m_fifo;
+</SPAN><SPAN><A CLASS="LN" NAME="68">   68   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> m_size;
+</SPAN><SPAN><A CLASS="LN" NAME="69">   69   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> m_readindex;
+</SPAN><SPAN><A CLASS="LN" NAME="70">   70   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> m_writeindex;
+</SPAN><SPAN><A CLASS="LN" NAME="71">   71   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> m_free;
+</SPAN><SPAN><A CLASS="LN" NAME="72">   72   </A><B>}</B>;                                     <SPAN CLASS="CT">//mw_comlink_fifo</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="73">   73   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="74">   74   </A>template &lt;typename T&gt;
+</SPAN><SPAN><A CLASS="LN" NAME="75">   75   </A>  class <A HREF="mw_support_h.html#fcn_mw_comlink_timedreg" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comlink_timedreg');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comlink_timedreg</FONT></A> : <A HREF="mw_support_tb_h.html#fcn_public" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_public');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">public</FONT></A> sc_core::sc_object
+</SPAN><SPAN><A CLASS="LN" NAME="76">   76   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="77">   77   </A> <A HREF="mw_support_tb_h.html#fcn_public" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_public');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">public</FONT></A>:
+</SPAN><SPAN><A CLASS="LN" NAME="78">   78   </A>  <A NAME="fcn_mw_comlink_timedreg">mw_comlink_timedreg</A>(<SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN>* name) : sc_core::sc_object(name)
+</SPAN><SPAN><A CLASS="LN" NAME="79">   79   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="80">   80   </A>    clear();
+</SPAN><SPAN><A CLASS="LN" NAME="81">   81   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="82">   82   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="83">   83   </A>  ~<A HREF="mw_support_h.html#fcn_mw_comlink_timedreg" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comlink_timedreg');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comlink_timedreg</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="84">   84   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="85">   85   </A>    clear();
+</SPAN><SPAN><A CLASS="LN" NAME="86">   86   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="87">   87   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="88">   88   </A>  <SPAN CLASS="KW">typedef</SPAN> <A HREF="model_jxz_tlm_cpp.html#var_std" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_std');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">std</FONT></A>::pair&lt;<SPAN CLASS="DT">const</SPAN> sc_core::sc_time, T&gt; <A HREF="mw_support_h.html#type_pair_type" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_pair_type');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">pair_type</FONT></A>;
+</SPAN><SPAN><A CLASS="LN" NAME="89">   89   </A>  <SPAN CLASS="KW">typedef</SPAN> typename <A HREF="model_jxz_tlm_cpp.html#var_std" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_std');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">std</FONT></A>::multimap&lt;<SPAN CLASS="DT">const</SPAN> sc_core::sc_time,T&gt;::iterator <A HREF="mw_support_h.html#type_it_type" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_it_type');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">it_type</FONT></A>;
+</SPAN><SPAN><A CLASS="LN" NAME="90">   90   </A>  <SPAN CLASS="DT">void</SPAN> clear()
+</SPAN><SPAN><A CLASS="LN" NAME="91">   91   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="92">   92   </A>    m_timedreg.clear();
+</SPAN><SPAN><A CLASS="LN" NAME="93">   93   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="94">   94   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="95">   95   </A>  <SPAN CLASS="DT">void</SPAN> clear(<SPAN CLASS="DT">const</SPAN> sc_core::sc_time&amp; localtime)
+</SPAN><SPAN><A CLASS="LN" NAME="96">   96   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="97">   97   </A>    sc_core::sc_time globaltime = sc_core::sc_time_stamp() + localtime;
+</SPAN><SPAN><A CLASS="LN" NAME="98">   98   </A>    m_timedreg.erase(m_timedreg.begin(),m_timedreg.lower_bound(globaltime));
+</SPAN><SPAN><A CLASS="LN" NAME="99">   99   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="100">  100   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="101">  101   </A>  bool nb_read(T* data,<SPAN CLASS="DT">const</SPAN> sc_core::sc_time&amp; localtime)
+</SPAN><SPAN><A CLASS="LN" NAME="102">  102   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="103">  103   </A>    sc_core::sc_time globaltime = sc_core::sc_time_stamp() + localtime;
+</SPAN><SPAN><A CLASS="LN" NAME="104">  104   </A>    <A HREF="mw_support_h.html#type_it_type" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_it_type');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">it_type</FONT></A> it_first_future = m_timedreg.upper_bound(globaltime);
+</SPAN><SPAN><A CLASS="LN" NAME="105">  105   </A>    <A HREF="mw_support_h.html#type_it_type" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_it_type');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">it_type</FONT></A> it_lastest_past = it_first_future;<SPAN CLASS="CT">//first item in the future;</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="106">  106   </A>    <SPAN CLASS="KW">if</SPAN> (it_first_future == m_timedreg.begin() ) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="107">  107   </A>      <SPAN CLASS="KW">return</SPAN> false;
+</SPAN><SPAN><A CLASS="LN" NAME="108">  108   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="109">  109   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="110">  110   </A>    it_lastest_past--;                 <SPAN CLASS="CT">//init to the lastest item in the past;</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="111">  111   </A>    *data = (*it_lastest_past).second;
+</SPAN><SPAN><A CLASS="LN" NAME="112">  112   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="113">  113   </A>    <SPAN CLASS="CT">//erase everything older than actual time (register behavior)</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="114">  114   </A>    m_timedreg.erase(m_timedreg.begin(),it_first_future);
+</SPAN><SPAN><A CLASS="LN" NAME="115">  115   </A>    <SPAN CLASS="KW">return</SPAN> true;
+</SPAN><SPAN><A CLASS="LN" NAME="116">  116   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="117">  117   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="118">  118   </A>  bool nb_write(<SPAN CLASS="DT">const</SPAN> T* data,<SPAN CLASS="DT">const</SPAN> sc_core::sc_time&amp; localtime)
+</SPAN><SPAN><A CLASS="LN" NAME="119">  119   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="120">  120   </A>    sc_core::sc_time globaltime = sc_core::sc_time_stamp() + localtime;
+</SPAN><SPAN><A CLASS="LN" NAME="121">  121   </A>    m_timedreg.insert(<A HREF="mw_support_h.html#type_pair_type" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_pair_type');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">pair_type</FONT></A>(globaltime,*data));
+</SPAN><SPAN><A CLASS="LN" NAME="122">  122   </A>    <SPAN CLASS="KW">return</SPAN> true;
+</SPAN><SPAN><A CLASS="LN" NAME="123">  123   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="124">  124   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="125">  125   </A> private:
+</SPAN><SPAN><A CLASS="LN" NAME="126">  126   </A>  <A HREF="model_jxz_tlm_cpp.html#var_std" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_std');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">std</FONT></A>::multimap&lt; <SPAN CLASS="DT">const</SPAN> sc_core::sc_time,T &gt; m_timedreg;
+</SPAN><SPAN><A CLASS="LN" NAME="127">  127   </A><B>}</B>;                                     <SPAN CLASS="CT">//mw_comlink_timedreg</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="128">  128   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="129">  129   </A>template &lt;typename T&gt;
+</SPAN><SPAN><A CLASS="LN" NAME="130">  130   </A>  class <A HREF="mw_support_h.html#fcn_mw_comlink_timedfifo" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comlink_timedfifo');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comlink_timedfifo</FONT></A> : <A HREF="mw_support_tb_h.html#fcn_public" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_public');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">public</FONT></A> sc_core::sc_object
+</SPAN><SPAN><A CLASS="LN" NAME="131">  131   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="132">  132   </A> <A HREF="mw_support_tb_h.html#fcn_public" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_public');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">public</FONT></A>:
+</SPAN><SPAN><A CLASS="LN" NAME="133">  133   </A>  <A NAME="fcn_mw_comlink_timedfifo">mw_comlink_timedfifo</A>(<SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN>* name, <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> size) : sc_core::sc_object
+</SPAN><SPAN><A CLASS="LN" NAME="134">  134   </A>    (name), m_size(size)
+</SPAN><SPAN><A CLASS="LN" NAME="135">  135   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="136">  136   </A>    clear();
+</SPAN><SPAN><A CLASS="LN" NAME="137">  137   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="138">  138   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="139">  139   </A>  ~<A HREF="mw_support_h.html#fcn_mw_comlink_timedfifo" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comlink_timedfifo');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comlink_timedfifo</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="140">  140   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="141">  141   </A>    clear();
+</SPAN><SPAN><A CLASS="LN" NAME="142">  142   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="143">  143   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="144">  144   </A>  <SPAN CLASS="KW">typedef</SPAN> <A HREF="model_jxz_tlm_cpp.html#var_std" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_std');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">std</FONT></A>::pair&lt;<SPAN CLASS="DT">const</SPAN> sc_core::sc_time, T&gt; <A NAME="type_pair_type">pair_type</A>;
+</SPAN><SPAN><A CLASS="LN" NAME="145">  145   </A>  <SPAN CLASS="KW">typedef</SPAN> typename <A HREF="model_jxz_tlm_cpp.html#var_std" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_std');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">std</FONT></A>::multimap&lt;<SPAN CLASS="DT">const</SPAN> sc_core::sc_time,T&gt;::iterator <A NAME="type_it_type">it_type</A>;
+</SPAN><SPAN><A CLASS="LN" NAME="146">  146   </A>  <SPAN CLASS="DT">void</SPAN> clear()
+</SPAN><SPAN><A CLASS="LN" NAME="147">  147   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="148">  148   </A>    m_timedfifo.clear();
+</SPAN><SPAN><A CLASS="LN" NAME="149">  149   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="150">  150   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="151">  151   </A>  <SPAN CLASS="DT">void</SPAN> clear(<SPAN CLASS="DT">const</SPAN> sc_core::sc_time&amp; localtime)
+</SPAN><SPAN><A CLASS="LN" NAME="152">  152   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="153">  153   </A>    sc_core::sc_time globaltime = sc_core::sc_time_stamp() + localtime;
+</SPAN><SPAN><A CLASS="LN" NAME="154">  154   </A>    m_timedfifo.erase(m_timedfifo.begin(),m_timedfifo.lower_bound(globaltime));
+</SPAN><SPAN><A CLASS="LN" NAME="155">  155   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="156">  156   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="157">  157   </A>  bool nb_read(T* data,<SPAN CLASS="DT">const</SPAN> sc_core::sc_time&amp; localtime)
+</SPAN><SPAN><A CLASS="LN" NAME="158">  158   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="159">  159   </A>    sc_core::sc_time globaltime = sc_core::sc_time_stamp() + localtime;
+</SPAN><SPAN><A CLASS="LN" NAME="160">  160   </A>    <A HREF="mw_support_h.html#type_it_type" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_it_type');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">it_type</FONT></A> it = m_timedfifo.upper_bound(globaltime);
+</SPAN><SPAN><A CLASS="LN" NAME="161">  161   </A>    <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> nb_elem = 0;
+</SPAN><SPAN><A CLASS="LN" NAME="162">  162   </A>    <SPAN CLASS="KW">while</SPAN> ((it != m_timedfifo.begin()) &amp;&amp; (nb_elem &lt; m_size)) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="163">  163   </A>      it--;
+</SPAN><SPAN><A CLASS="LN" NAME="164">  164   </A>      nb_elem++;
+</SPAN><SPAN><A CLASS="LN" NAME="165">  165   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="166">  166   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="167">  167   </A>    <SPAN CLASS="KW">if</SPAN> (nb_elem == 0) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="168">  168   </A>      <SPAN CLASS="KW">return</SPAN> false;
+</SPAN><SPAN><A CLASS="LN" NAME="169">  169   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="170">  170   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="171">  171   </A>    *data = (*it).second;
+</SPAN><SPAN><A CLASS="LN" NAME="172">  172   </A>    it++;                              <SPAN CLASS="CT">//move to next item (new head) and erase everything older;</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="173">  173   </A>    m_timedfifo.erase(m_timedfifo.begin(),it);
+</SPAN><SPAN><A CLASS="LN" NAME="174">  174   </A>    <SPAN CLASS="KW">return</SPAN> true;
+</SPAN><SPAN><A CLASS="LN" NAME="175">  175   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="176">  176   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="177">  177   </A>  bool nb_write(<SPAN CLASS="DT">const</SPAN> T* data,<SPAN CLASS="DT">const</SPAN> sc_core::sc_time&amp; localtime)
+</SPAN><SPAN><A CLASS="LN" NAME="178">  178   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="179">  179   </A>    sc_core::sc_time globaltime = sc_core::sc_time_stamp() + localtime;
+</SPAN><SPAN><A CLASS="LN" NAME="180">  180   </A>    <A HREF="mw_support_h.html#type_it_type" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_it_type');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">it_type</FONT></A> it = m_timedfifo.upper_bound(globaltime);
+</SPAN><SPAN><A CLASS="LN" NAME="181">  181   </A>    <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> nb_elem = 0;
+</SPAN><SPAN><A CLASS="LN" NAME="182">  182   </A>    <SPAN CLASS="KW">while</SPAN> ((it != m_timedfifo.begin())&amp;&amp; (nb_elem &lt; m_size)) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="183">  183   </A>      it--;
+</SPAN><SPAN><A CLASS="LN" NAME="184">  184   </A>      nb_elem++;
+</SPAN><SPAN><A CLASS="LN" NAME="185">  185   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="186">  186   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="187">  187   </A>    <SPAN CLASS="KW">if</SPAN> (nb_elem &gt;= m_size) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="188">  188   </A>      <SPAN CLASS="KW">return</SPAN> false;
+</SPAN><SPAN><A CLASS="LN" NAME="189">  189   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="190">  190   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="191">  191   </A>    m_timedfifo.insert(<A HREF="mw_support_h.html#type_pair_type" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_pair_type');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">pair_type</FONT></A>(globaltime,*data));
+</SPAN><SPAN><A CLASS="LN" NAME="192">  192   </A>    <SPAN CLASS="KW">return</SPAN> true;
+</SPAN><SPAN><A CLASS="LN" NAME="193">  193   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="194">  194   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="195">  195   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> get_num_available(<SPAN CLASS="DT">const</SPAN> sc_core::sc_time&amp; localtime)
+</SPAN><SPAN><A CLASS="LN" NAME="196">  196   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="197">  197   </A>    sc_core::sc_time globaltime = sc_core::sc_time_stamp() + localtime;
+</SPAN><SPAN><A CLASS="LN" NAME="198">  198   </A>    <A HREF="mw_support_h.html#type_it_type" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_it_type');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">it_type</FONT></A> it = m_timedfifo.upper_bound(globaltime);
+</SPAN><SPAN><A CLASS="LN" NAME="199">  199   </A>    <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> nb_elem = 0;
+</SPAN><SPAN><A CLASS="LN" NAME="200">  200   </A>    <SPAN CLASS="KW">while</SPAN> ((it != m_timedfifo.begin())&amp;&amp; (nb_elem &lt; m_size)) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="201">  201   </A>      it--;
+</SPAN><SPAN><A CLASS="LN" NAME="202">  202   </A>      nb_elem++;
+</SPAN><SPAN><A CLASS="LN" NAME="203">  203   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="204">  204   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="205">  205   </A>    <SPAN CLASS="KW">return</SPAN> nb_elem;
+</SPAN><SPAN><A CLASS="LN" NAME="206">  206   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="207">  207   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="208">  208   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> get_num_free(<SPAN CLASS="DT">const</SPAN> sc_core::sc_time&amp; localtime)
+</SPAN><SPAN><A CLASS="LN" NAME="209">  209   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="210">  210   </A>    sc_core::sc_time globaltime = sc_core::sc_time_stamp() + localtime;
+</SPAN><SPAN><A CLASS="LN" NAME="211">  211   </A>    <A HREF="mw_support_h.html#type_it_type" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_it_type');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">it_type</FONT></A> it = m_timedfifo.upper_bound(globaltime);
+</SPAN><SPAN><A CLASS="LN" NAME="212">  212   </A>    <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> nb_elem = 0;
+</SPAN><SPAN><A CLASS="LN" NAME="213">  213   </A>    <SPAN CLASS="KW">while</SPAN> ((it != m_timedfifo.begin())&amp;&amp; (nb_elem &lt; m_size)) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="214">  214   </A>      it--;
+</SPAN><SPAN><A CLASS="LN" NAME="215">  215   </A>      nb_elem++;
+</SPAN><SPAN><A CLASS="LN" NAME="216">  216   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="217">  217   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="218">  218   </A>    <SPAN CLASS="KW">return</SPAN> m_size-nb_elem;
+</SPAN><SPAN><A CLASS="LN" NAME="219">  219   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="220">  220   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="221">  221   </A> private:
+</SPAN><SPAN><A CLASS="LN" NAME="222">  222   </A>  <A HREF="model_jxz_tlm_cpp.html#var_std" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_std');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">std</FONT></A>::multimap&lt; <SPAN CLASS="DT">const</SPAN> sc_core::sc_time,T &gt; m_timedfifo;
+</SPAN><SPAN><A CLASS="LN" NAME="223">  223   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> m_size;
+</SPAN><SPAN><A CLASS="LN" NAME="224">  224   </A><B>}</B>;                                     <SPAN CLASS="CT">//mw_comlink_timedfifo</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="225">  225   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="226">  226   </A>class <A HREF="mw_support_h.html#fcn_mw_refresh_reg" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_refresh_reg');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_refresh_reg</FONT></A>
+</SPAN><SPAN><A CLASS="LN" NAME="227">  227   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="228">  228   </A> <A HREF="mw_support_tb_h.html#fcn_public" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_public');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">public</FONT></A>:
+</SPAN><SPAN><A CLASS="LN" NAME="229">  229   </A>  <A NAME="fcn_mw_refresh_reg">mw_refresh_reg</A>(<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">long</SPAN> nb_reg)
+</SPAN><SPAN><A CLASS="LN" NAME="230">  230   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="231">  231   </A>    m_max = ~((~0ULL) &lt;&lt; nb_reg);
+</SPAN><SPAN><A CLASS="LN" NAME="232">  232   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="233">  233   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="234">  234   </A>  ~<A HREF="mw_support_h.html#fcn_mw_refresh_reg" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_refresh_reg');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_refresh_reg</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="235">  235   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="236">  236   </A>    ;
+</SPAN><SPAN><A CLASS="LN" NAME="237">  237   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="238">  238   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="239">  239   </A>  inline <SPAN CLASS="DT">void</SPAN> init(bool full)
+</SPAN><SPAN><A CLASS="LN" NAME="240">  240   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="241">  241   </A>    m_reg = full? m_max: 0ULL;
+</SPAN><SPAN><A CLASS="LN" NAME="242">  242   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="243">  243   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="244">  244   </A>  inline <SPAN CLASS="DT">void</SPAN> set(<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">long</SPAN> pos)
+</SPAN><SPAN><A CLASS="LN" NAME="245">  245   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="246">  246   </A>    m_reg |= (1ULL &lt;&lt; pos);
+</SPAN><SPAN><A CLASS="LN" NAME="247">  247   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="248">  248   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="249">  249   </A>  inline bool test(<SPAN CLASS="DT">void</SPAN>)
+</SPAN><SPAN><A CLASS="LN" NAME="250">  250   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="251">  251   </A>    <SPAN CLASS="KW">return</SPAN> (m_reg == m_max);
+</SPAN><SPAN><A CLASS="LN" NAME="252">  252   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="253">  253   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="254">  254   </A> private:
+</SPAN><SPAN><A CLASS="LN" NAME="255">  255   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">long</SPAN> <SPAN CLASS="DT">long</SPAN> m_reg;
+</SPAN><SPAN><A CLASS="LN" NAME="256">  256   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">long</SPAN> <SPAN CLASS="DT">long</SPAN> m_max;
+</SPAN><SPAN><A CLASS="LN" NAME="257">  257   </A><B>}</B>;                                     <SPAN CLASS="CT">//mw_refresh_reg</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="258">  258   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="259">  259   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">endif</SPAN>                                 <SPAN CLASS="CT">//__MW_SUPPORT_H__</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="260">  260   </A>
+</SPAN></PRE>
+</TD></TR></TABLE>
+</P>
+</BODY>
+</HTML>

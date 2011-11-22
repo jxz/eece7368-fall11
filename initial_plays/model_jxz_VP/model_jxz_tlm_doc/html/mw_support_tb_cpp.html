@@ -1,0 +1,982 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - mw_support_tb.cpp </TITLE>
+<STYLE> .LN { font-style: italic; color: #888888 } </STYLE>
+<STYLE> .CT { font-style: italic; color: #117755 } </STYLE>
+<STYLE> .PP { font-style: bold;   color: #992211 } </STYLE>
+<STYLE> .KW { font-style: bold;   color: #112266 } </STYLE>
+<STYLE> .DT { font-style: bold;   color: #112266 } </STYLE>
+<SCRIPT language="JavaScript" type="text/javascript">
+<!--
+function rtwHilite(aBlock,aParentSID) {
+ aParentSID = "";
+ try {
+    window.location.href="matlab: if ~isempty(which('private/rtwbindmodel')), rtwprivate rtwbindmodel '/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz.mdl' '/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_build' '', end; rtwprivate code2model "+aBlock+" "+aParentSID+";"
+ } catch (e) { 
+ }
+} // end rtwHilite
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="#eeeeee" TEXT="#1122aa" ONLOAD="if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window);} ">
+<P>
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
+<H4>File: <A HREF="file:///home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_build/tlm_tb/mw_support_tb.cpp" TARGET="rtwreport_document_frame">/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_build/tlm_tb/mw_support_tb.cpp</A></H4>
+<PRE id="RTWcode">
+<SPAN><A CLASS="LN" NAME="1">    1   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&quot;mw_support_tb.h&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="2">    2   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&lt;string&gt;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="3">    3   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&lt;stdarg.h&gt;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="4">    4   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="5">    5   </A>using <A HREF="model_jxz_tlm_cpp.html#var_std" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_std');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">std</FONT></A>::<A NAME="var_string">string</A>;
+</SPAN><SPAN><A CLASS="LN" NAME="6">    6   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="7">    7   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">ifndef</SPAN> TLMG_MAX_NUM_MISCOMPARES
+</SPAN><SPAN><A CLASS="LN" NAME="8">    8   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> TLMG_MAX_NUM_MISCOMPARES       20
+</SPAN><SPAN><A CLASS="LN" NAME="9">    9   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">endif</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="10">   10   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="11">   11   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="12">   12   </A><SPAN CLASS="CT">// Utils</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="13">   13   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="14">   14   </A><A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A>::<A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A>(<SPAN CLASS="DT">int</SPAN> currVerbosity) :
+</SPAN><SPAN><A CLASS="LN" NAME="15">   15   </A>  m_errorStatus(0), m_currVerbosity(currVerbosity)
+</SPAN><SPAN><A CLASS="LN" NAME="16">   16   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="17">   17   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="18">   18   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="19">   19   </A><A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A>::~<A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="20">   20   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="21">   21   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="22">   22   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="23">   23   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="24">   24   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A>::<A NAME="fcn_markError">markError</A>(<SPAN CLASS="DT">int</SPAN> errKind)
+</SPAN><SPAN><A CLASS="LN" NAME="25">   25   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="26">   26   </A>  m_errorStatus |= errKind;
+</SPAN><SPAN><A CLASS="LN" NAME="27">   27   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="28">   28   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="29">   29   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="30">   30   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A>::<A NAME="fcn_printMsg">printMsg</A>(<SPAN CLASS="DT">int</SPAN> level, <SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN> * fmt, ...)
+</SPAN><SPAN><A CLASS="LN" NAME="31">   31   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="32">   32   </A>  <SPAN CLASS="KW">if</SPAN> (level &amp; m_currVerbosity) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="33">   33   </A>    <SPAN CLASS="CT">// prepend thread name and time to message</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="34">   34   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="35">   35   </A>    <SPAN CLASS="CT">// thread name:</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="36">   36   </A>    sc_process_handle ph = sc_get_current_process_handle();
+</SPAN><SPAN><A CLASS="LN" NAME="37">   37   </A>    <A HREF="mw_support_tb_cpp.html#var_string" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_string');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">string</FONT></A> thrName(ph.name());
+</SPAN><SPAN><A CLASS="LN" NAME="38">   38   </A>    size_t shortNameIdx = thrName.find_last_of(<FONT COLOR="#1122ff">'.'</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="39">   39   </A>    <A HREF="mw_support_tb_cpp.html#var_string" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_string');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">string</FONT></A> shortName = thrName.substr(shortNameIdx+1);
+</SPAN><SPAN><A CLASS="LN" NAME="40">   40   </A>    size_t isReader = shortName.find(<FONT COLOR="#1122ff">&quot;readerThread&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="41">   41   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="42">   42   </A>    <SPAN CLASS="CT">// sim time:</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="43">   43   </A>    <SPAN CLASS="DT">const</SPAN> sc_time &amp; simtime = sc_time_stamp();
+</SPAN><SPAN><A CLASS="LN" NAME="44">   44   </A>    <SPAN CLASS="DT">static</SPAN> <SPAN CLASS="DT">char</SPAN> buf[512];              <SPAN CLASS="CT">// FIXME: detect err on overrun</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="45">   45   </A>    va_list args;
+</SPAN><SPAN><A CLASS="LN" NAME="46">   46   </A>    va_start(args, fmt);
+</SPAN><SPAN><A CLASS="LN" NAME="47">   47   </A>    vsprintf(buf, fmt, args);
+</SPAN><SPAN><A CLASS="LN" NAME="48">   48   </A>    va_end(args);
+</SPAN><SPAN><A CLASS="LN" NAME="49">   49   </A>    <SPAN CLASS="KW">if</SPAN> (isReader != <A HREF="mw_support_tb_cpp.html#var_string" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_string');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">string</FONT></A>::npos) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="50">   50   </A>      printf(<FONT COLOR="#1122ff">&quot;[%10s] (%10s) \t\t%s&quot;</FONT>, (simtime.to_string()).c_str(),
+</SPAN><SPAN><A CLASS="LN" NAME="51">   51   </A>             shortName.c_str(), buf);
+</SPAN><SPAN><A CLASS="LN" NAME="52">   52   </A>    <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="53">   53   </A>      printf(<FONT COLOR="#1122ff">&quot;[%10s] (%10s) %s&quot;</FONT>, (simtime.to_string()).c_str(), shortName.c_str(),
+</SPAN><SPAN><A CLASS="LN" NAME="54">   54   </A>             buf);
+</SPAN><SPAN><A CLASS="LN" NAME="55">   55   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="56">   56   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="57">   57   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="58">   58   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="59">   59   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="60">   60   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A>::<A NAME="fcn_printErr">printErr</A>(<SPAN CLASS="DT">int</SPAN> err, <SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN> * fmt, ...)
+</SPAN><SPAN><A CLASS="LN" NAME="61">   61   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="62">   62   </A>  sc_process_handle ph = sc_get_current_process_handle();
+</SPAN><SPAN><A CLASS="LN" NAME="63">   63   </A>  <SPAN CLASS="DT">char</SPAN> buf[256];                       <SPAN CLASS="CT">// FIXME: detect err on overrun</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="64">   64   </A>  va_list args;
+</SPAN><SPAN><A CLASS="LN" NAME="65">   65   </A>  va_start(args, fmt);
+</SPAN><SPAN><A CLASS="LN" NAME="66">   66   </A>  vsprintf(buf, fmt, args);
+</SPAN><SPAN><A CLASS="LN" NAME="67">   67   </A>  va_end(args);
+</SPAN><SPAN><A CLASS="LN" NAME="68">   68   </A>  printf(<FONT COLOR="#1122ff">&quot;(%10s) %s&quot;</FONT>, ph.name(), buf);
+</SPAN><SPAN><A CLASS="LN" NAME="69">   69   </A>  <A HREF="mw_support_tb_cpp.html#fcn_markError" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_markError');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">markError</FONT></A>(err);
+</SPAN><SPAN><A CLASS="LN" NAME="70">   70   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="71">   71   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="72">   72   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A>::<A NAME="fcn_turnOnMsgKind">turnOnMsgKind</A>(<SPAN CLASS="DT">int</SPAN> msgKindMask)
+</SPAN><SPAN><A CLASS="LN" NAME="73">   73   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="74">   74   </A>  m_currVerbosity |= msgKindMask;
+</SPAN><SPAN><A CLASS="LN" NAME="75">   75   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="76">   76   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="77">   77   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A>::<A NAME="fcn_turnOffMsgKind">turnOffMsgKind</A>(<SPAN CLASS="DT">int</SPAN> msgKindMask)
+</SPAN><SPAN><A CLASS="LN" NAME="78">   78   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="79">   79   </A>  m_currVerbosity &amp;= ~msgKindMask;
+</SPAN><SPAN><A CLASS="LN" NAME="80">   80   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="81">   81   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="82">   82   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="83">   83   </A><SPAN CLASS="DT">int</SPAN> <A NAME="fcn_mw_utils_tb">mw_utils_tb</A>::<A HREF="model_jxz_tlm_tb_cpp.html#fcn_getErrorStatus" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_getErrorStatus');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">getErrorStatus</FONT></A>(<SPAN CLASS="DT">void</SPAN>)
+</SPAN><SPAN><A CLASS="LN" NAME="84">   84   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="85">   85   </A>  <SPAN CLASS="KW">return</SPAN> m_errorStatus;
+</SPAN><SPAN><A CLASS="LN" NAME="86">   86   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="87">   87   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="88">   88   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="89">   89   </A><SPAN CLASS="CT">// Port Info</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="90">   90   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="91">   91   </A>mw_portinfo_tb::~mw_portinfo_tb()
+</SPAN><SPAN><A CLASS="LN" NAME="92">   92   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="93">   93   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="94">   94   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="95">   95   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="96">   96   </A><SPAN CLASS="CT">// MAT File</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="97">   97   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="98">   98   </A><SPAN CLASS="CT">//mw_matfile_tb::mw_matfile_tb() :</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="99">   99   </A><SPAN CLASS="CT">//  m_filename(""), m_perm(""), m_matVar(""), m_numInFields(0), m_numOutFields(0),</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="100">  100   </A><SPAN CLASS="CT">//  m_numVectors(0), m_sclog(NULL), m_pmat(NULL)</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="101">  101   </A><SPAN CLASS="CT">//{</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="102">  102   </A><SPAN CLASS="CT">//}</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="103">  103   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="104">  104   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="105">  105   </A>mw_matfile_tb::mw_matfile_tb(
+</SPAN><SPAN><A CLASS="LN" NAME="106">  106   </A>  <A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A> &amp; utils, <SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN> * fn, <SPAN CLASS="DT">int</SPAN> numIn, <SPAN CLASS="DT">int</SPAN> numOut,
+</SPAN><SPAN><A CLASS="LN" NAME="107">  107   </A>  <SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN> * perm, <SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN> * mvar, <SPAN CLASS="DT">int</SPAN> numVec) :
+</SPAN><SPAN><A CLASS="LN" NAME="108">  108   </A>  m_utils(utils),
+</SPAN><SPAN><A CLASS="LN" NAME="109">  109   </A>  m_filename(fn),
+</SPAN><SPAN><A CLASS="LN" NAME="110">  110   </A>  m_numInFields(numIn),
+</SPAN><SPAN><A CLASS="LN" NAME="111">  111   </A>  m_numOutFields(numOut),
+</SPAN><SPAN><A CLASS="LN" NAME="112">  112   </A>  m_perm(perm),
+</SPAN><SPAN><A CLASS="LN" NAME="113">  113   </A>  m_matVar(mvar),
+</SPAN><SPAN><A CLASS="LN" NAME="114">  114   </A>  m_numVectors(numVec),
+</SPAN><SPAN><A CLASS="LN" NAME="115">  115   </A>  m_sclog(NULL), m_pmat(NULL)
+</SPAN><SPAN><A CLASS="LN" NAME="116">  116   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="117">  117   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="118">  118   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="119">  119   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="120">  120   </A>mw_matfile_tb::~mw_matfile_tb()
+</SPAN><SPAN><A CLASS="LN" NAME="121">  121   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="122">  122   </A>  mxDestroyArray(m_sclog);
+</SPAN><SPAN><A CLASS="LN" NAME="123">  123   </A>  <SPAN CLASS="KW">if</SPAN> (matClose(m_pmat) != 0) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="124">  124   </A>    printf(<FONT COLOR="#1122ff">&quot;## ERROR: closing file %s\n&quot;</FONT>, m_filename);
+</SPAN><SPAN><A CLASS="LN" NAME="125">  125   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="126">  126   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="127">  127   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="128">  128   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="129">  129   </A><SPAN CLASS="CT">// expected structure of the MAT file info. . .</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="130">  130   </A><SPAN CLASS="CT">//      tlmg_inXXX</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="131">  131   </A><SPAN CLASS="CT">//          Data (buffer of elem data type)</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="132">  132   </A><SPAN CLASS="CT">//          SampleInfo</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="133">  133   </A><SPAN CLASS="CT">//              elemDataType</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="134">  134   </A><SPAN CLASS="CT">//              (etc)</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="135">  135   </A><SPAN CLASS="CT">//          DataTypeInfo</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="136">  136   </A><SPAN CLASS="CT">//              numerictype</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="137">  137   </A><SPAN CLASS="CT">//              isComplex</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="138">  138   </A><SPAN CLASS="CT">//      tlmg_outXXX</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="139">  139   </A><SPAN CLASS="CT">//          (etc)</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="140">  140   </A><SPAN CLASS="CT">//</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="141">  141   </A><SPAN CLASS="DT">void</SPAN> mw_matfile_tb::initializeInMatFieldInfo(
+</SPAN><SPAN><A CLASS="LN" NAME="142">  142   </A>  <A HREF="mw_support_tb_h.html#type_mw_portinfovec_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_portinfovec_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_portinfovec_tb</FONT></A> &amp; inFieldInfo,
+</SPAN><SPAN><A CLASS="LN" NAME="143">  143   </A>  <A HREF="mw_support_tb_h.html#type_mw_portinfovec_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_portinfovec_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_portinfovec_tb</FONT></A> &amp; expOutFieldInfo)
+</SPAN><SPAN><A CLASS="LN" NAME="144">  144   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="145">  145   </A>  <SPAN CLASS="KW">if</SPAN> (openMat()) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="146">  146   </A>    m_utils.markError(TLMG_ERR_MAT_INIT);
+</SPAN><SPAN><A CLASS="LN" NAME="147">  147   </A>    <SPAN CLASS="KW">return</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="148">  148   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="149">  149   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="150">  150   </A>  <SPAN CLASS="KW">if</SPAN> (readSclog()) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="151">  151   </A>    m_utils.markError(TLMG_ERR_MAT_INIT);
+</SPAN><SPAN><A CLASS="LN" NAME="152">  152   </A>    <SPAN CLASS="KW">return</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="153">  153   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="154">  154   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="155">  155   </A>  <SPAN CLASS="DT">int</SPAN> numfields = mxGetNumberOfFields(m_sclog);
+</SPAN><SPAN><A CLASS="LN" NAME="156">  156   </A>  <SPAN CLASS="DT">int</SPAN> in_dcount = 0;
+</SPAN><SPAN><A CLASS="LN" NAME="157">  157   </A>  <SPAN CLASS="DT">int</SPAN> out_dcount = 0;
+</SPAN><SPAN><A CLASS="LN" NAME="158">  158   </A>  SignalDirectionEnumT sigdir;
+</SPAN><SPAN><A CLASS="LN" NAME="159">  159   </A>  <SPAN CLASS="KW">for</SPAN> (<SPAN CLASS="DT">int</SPAN> i=0; i&lt;numfields; i++) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="160">  160   </A>    <SPAN CLASS="CT">// ----------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="161">  161   </A>    <SPAN CLASS="CT">// get fieldname and direction</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="162">  162   </A>    <SPAN CLASS="CT">// ----------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="163">  163   </A>    <SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN> * fname = mxGetFieldNameByNumber(m_sclog, i);
+</SPAN><SPAN><A CLASS="LN" NAME="164">  164   </A>    <SPAN CLASS="KW">if</SPAN> (!strncmp(<FONT COLOR="#1122ff">&quot;tlmg_in&quot;</FONT>, fname, 7)) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="165">  165   </A>      sigdir = INPUT_SIG;
+</SPAN><SPAN><A CLASS="LN" NAME="166">  166   </A>      m_utils.printMsg(TLMG_PRINT_VEC_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="167">  167   </A>                       <FONT COLOR="#1122ff">&quot;## found input field %s at %s fieldnum %d\n&quot;</FONT>, fname,
+</SPAN><SPAN><A CLASS="LN" NAME="168">  168   </A>                       m_matVar, i);
+</SPAN><SPAN><A CLASS="LN" NAME="169">  169   </A>    <B>}</B> <SPAN CLASS="KW">else</SPAN> <SPAN CLASS="KW">if</SPAN> (!strncmp(<FONT COLOR="#1122ff">&quot;tlmg_out&quot;</FONT>, fname, 8)) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="170">  170   </A>      sigdir = <A HREF="mw_support_tb_h.html#var_OUTPUT_SIG" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_OUTPUT_SIG');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">OUTPUT_SIG</FONT></A>;
+</SPAN><SPAN><A CLASS="LN" NAME="171">  171   </A>      m_utils.printMsg(TLMG_PRINT_VEC_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="172">  172   </A>                       <FONT COLOR="#1122ff">&quot;## found output field %s at %s fieldnum %d\n&quot;</FONT>, fname,
+</SPAN><SPAN><A CLASS="LN" NAME="173">  173   </A>                       m_matVar, i);
+</SPAN><SPAN><A CLASS="LN" NAME="174">  174   </A>    <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="175">  175   </A>      m_utils.printMsg(TLMG_PRINT_VEC_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="176">  176   </A>                       <FONT COLOR="#1122ff">&quot;## skipping unknown field %s in var %s\n&quot;</FONT>, fname,
+</SPAN><SPAN><A CLASS="LN" NAME="177">  177   </A>                       m_matVar);
+</SPAN><SPAN><A CLASS="LN" NAME="178">  178   </A>      <SPAN CLASS="KW">continue</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="179">  179   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="180">  180   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="181">  181   </A>    <SPAN CLASS="CT">// -------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="182">  182   </A>    <SPAN CLASS="CT">// get hold of Data field and its underlying data buffer</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="183">  183   </A>    <SPAN CLASS="CT">// -------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="184">  184   </A>    mxArray * pmxa_field;
+</SPAN><SPAN><A CLASS="LN" NAME="185">  185   </A>    <SPAN CLASS="KW">if</SPAN> ((pmxa_field = mxGetFieldByNumber(m_sclog, 0, i)) == NULL) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="186">  186   </A>      m_utils.printErr(TLMG_ERR_MAT_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="187">  187   </A>                       <FONT COLOR="#1122ff">&quot;## ERROR: %s.tlmg_XX var could not be read.\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="188">  188   </A>                       m_matVar);
+</SPAN><SPAN><A CLASS="LN" NAME="189">  189   </A>      <SPAN CLASS="KW">return</SPAN>;                          <SPAN CLASS="CT">//return(1);</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="190">  190   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="191">  191   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="192">  192   </A>    <SPAN CLASS="DT">int</SPAN> fnum;
+</SPAN><SPAN><A CLASS="LN" NAME="193">  193   </A>    <SPAN CLASS="KW">if</SPAN> ((fnum = mxGetFieldNumber(pmxa_field, <FONT COLOR="#1122ff">&quot;Data&quot;</FONT>)) == -1) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="194">  194   </A>      m_utils.printErr(TLMG_ERR_MAT_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="195">  195   </A>                       <FONT COLOR="#1122ff">&quot;## ERROR: %s.tlmg_XX var did not have Data field.\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="196">  196   </A>                       m_matVar);
+</SPAN><SPAN><A CLASS="LN" NAME="197">  197   </A>      <SPAN CLASS="KW">return</SPAN>;                          <SPAN CLASS="CT">//return(1);</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="198">  198   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="199">  199   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="200">  200   </A>    mxArray * pmxa_dfield;
+</SPAN><SPAN><A CLASS="LN" NAME="201">  201   </A>    <SPAN CLASS="KW">if</SPAN> ((pmxa_dfield = mxGetFieldByNumber(pmxa_field, 0, fnum)) == NULL) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="202">  202   </A>      m_utils.printErr(TLMG_ERR_MAT_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="203">  203   </A>                       <FONT COLOR="#1122ff">&quot;## ERROR: %s.tlmg_XX.Data var could not be read.\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="204">  204   </A>                       m_matVar);
+</SPAN><SPAN><A CLASS="LN" NAME="205">  205   </A>      <SPAN CLASS="KW">return</SPAN>;                          <SPAN CLASS="CT">//return(1);</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="206">  206   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="207">  207   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="208">  208   </A>    <SPAN CLASS="KW">if</SPAN> (sigdir == INPUT_SIG) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="209">  209   </A>      inFieldInfo[in_dcount].pmxa = pmxa_dfield;
+</SPAN><SPAN><A CLASS="LN" NAME="210">  210   </A>      inFieldInfo[in_dcount].pslf = (<SPAN CLASS="DT">char</SPAN> *)mxGetData(pmxa_dfield);
+</SPAN><SPAN><A CLASS="LN" NAME="211">  211   </A>      inFieldInfo[in_dcount].sldsize =
+</SPAN><SPAN><A CLASS="LN" NAME="212">  212   </A>        mxGetNumberOfElements(pmxa_dfield) * mxGetElementSize(pmxa_dfield);
+</SPAN><SPAN><A CLASS="LN" NAME="213">  213   </A>      in_dcount++;
+</SPAN><SPAN><A CLASS="LN" NAME="214">  214   </A>    <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="215">  215   </A>      expOutFieldInfo[out_dcount].pmxa = pmxa_dfield;
+</SPAN><SPAN><A CLASS="LN" NAME="216">  216   </A>      expOutFieldInfo[out_dcount].pslf = (<SPAN CLASS="DT">char</SPAN> *)mxGetData(pmxa_dfield);
+</SPAN><SPAN><A CLASS="LN" NAME="217">  217   </A>      expOutFieldInfo[out_dcount].sldsize =
+</SPAN><SPAN><A CLASS="LN" NAME="218">  218   </A>        mxGetNumberOfElements(pmxa_dfield) * mxGetElementSize(pmxa_dfield);
+</SPAN><SPAN><A CLASS="LN" NAME="219">  219   </A>      out_dcount++;
+</SPAN><SPAN><A CLASS="LN" NAME="220">  220   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="221">  221   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="222">  222   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="223">  223   </A>  <SPAN CLASS="KW">if</SPAN> (in_dcount != m_numInFields) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="224">  224   </A>    m_utils.printErr(TLMG_ERR_MAT_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="225">  225   </A>                     <FONT COLOR="#1122ff">&quot;## found %d input fields in var %s, expected %d\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="226">  226   </A>                     in_dcount, m_matVar, NUM_IN_PORTS);
+</SPAN><SPAN><A CLASS="LN" NAME="227">  227   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="228">  228   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="229">  229   </A>  <SPAN CLASS="KW">if</SPAN> (out_dcount != m_numOutFields) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="230">  230   </A>    m_utils.printErr(TLMG_ERR_MAT_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="231">  231   </A>                     <FONT COLOR="#1122ff">&quot;## found %d output fields in var %s, expected %d\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="232">  232   </A>                     out_dcount, m_matVar, NUM_OUT_PORTS);
+</SPAN><SPAN><A CLASS="LN" NAME="233">  233   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="234">  234   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="235">  235   </A>  m_utils.printMsg(TLMG_PRINT_VEC_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="236">  236   </A>                   <FONT COLOR="#1122ff">&quot;## setup %d input data fields, %d output data fields\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="237">  237   </A>                   in_dcount,
+</SPAN><SPAN><A CLASS="LN" NAME="238">  238   </A>                   out_dcount);
+</SPAN><SPAN><A CLASS="LN" NAME="239">  239   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="240">  240   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="241">  241   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="242">  242   </A><SPAN CLASS="CT">// expected structure of the MAT file info. . .</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="243">  243   </A><SPAN CLASS="CT">//      tlmg_outXXX</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="244">  244   </A><SPAN CLASS="CT">//          Data (buffer of elem data type)</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="245">  245   </A><SPAN CLASS="CT">//</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="246">  246   </A><SPAN CLASS="DT">void</SPAN> mw_matfile_tb::initializeOutMatFieldInfo(
+</SPAN><SPAN><A CLASS="LN" NAME="247">  247   </A>  <A HREF="mw_support_tb_h.html#type_mw_portinfovec_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_portinfovec_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_portinfovec_tb</FONT></A> &amp; expOutFieldInfo,
+</SPAN><SPAN><A CLASS="LN" NAME="248">  248   </A>  <A HREF="mw_support_tb_h.html#type_mw_portinfovec_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_portinfovec_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_portinfovec_tb</FONT></A> &amp; actOutFieldInfo)
+</SPAN><SPAN><A CLASS="LN" NAME="249">  249   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="250">  250   </A>  <SPAN CLASS="KW">if</SPAN> (openMat()) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="251">  251   </A>    m_utils.markError(TLMG_ERR_MAT_INIT);
+</SPAN><SPAN><A CLASS="LN" NAME="252">  252   </A>    <SPAN CLASS="KW">return</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="253">  253   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="254">  254   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="255">  255   </A>  <SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN> * topFields[] = <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="256">  256   </A>    <FONT COLOR="#1122ff">&quot;tlmg_outX&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="257">  257   </A>  <B>}</B>;
+</SPAN><SPAN><A CLASS="LN" NAME="258">  258   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="259">  259   </A>  mwSize dims[2] = <B>{</B> 1, 1 <B>}</B>;
+</SPAN><SPAN><A CLASS="LN" NAME="260">  260   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="261">  261   </A>  m_sclog = mxCreateStructArray(2, dims, m_numOutFields, topFields);
+</SPAN><SPAN><A CLASS="LN" NAME="262">  262   </A>  <SPAN CLASS="KW">if</SPAN> (m_sclog == NULL) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="263">  263   </A>    m_utils.printErr(TLMG_ERR_MAT_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="264">  264   </A>                     <FONT COLOR="#1122ff">&quot;## ERROR: Could not create top-level mx struct for MAT file %s\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="265">  265   </A>                     m_filename);
+</SPAN><SPAN><A CLASS="LN" NAME="266">  266   </A>    <SPAN CLASS="KW">exit</SPAN>(-1);                          <SPAN CLASS="CT">//return(1);</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="267">  267   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="268">  268   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="269">  269   </A>  <SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">char</SPAN> * outStructFieldNames[] = <B>{</B> <FONT COLOR="#1122ff">&quot;Data&quot;</FONT> <B>}</B>;<SPAN CLASS="CT">// may add DataTypeInfo later.</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="270">  270   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="271">  271   </A>  mxArray * paOutStruct;
+</SPAN><SPAN><A CLASS="LN" NAME="272">  272   </A>  <SPAN CLASS="KW">for</SPAN> (<SPAN CLASS="DT">int</SPAN> i=0; i&lt;m_numOutFields; i++) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="273">  273   </A>    <SPAN CLASS="CT">// create Data array -- should match expected data out. . .</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="274">  274   </A>    dims[1] = expOutFieldInfo[i].sldsize;
+</SPAN><SPAN><A CLASS="LN" NAME="275">  275   </A>    actOutFieldInfo[i].sldsize = dims[1];
+</SPAN><SPAN><A CLASS="LN" NAME="276">  276   </A>    actOutFieldInfo[i].pmxa = mxCreateNumericArray(2, dims, mxUINT8_CLASS,
+</SPAN><SPAN><A CLASS="LN" NAME="277">  277   </A>      mxREAL);
+</SPAN><SPAN><A CLASS="LN" NAME="278">  278   </A>    <SPAN CLASS="KW">if</SPAN> (actOutFieldInfo[i].pmxa == NULL) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="279">  279   </A>      m_utils.printErr(TLMG_ERR_MAT_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="280">  280   </A>                       <FONT COLOR="#1122ff">&quot;## ERROR: Could not create mx numeric array for MAT file %s\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="281">  281   </A>                       m_filename);
+</SPAN><SPAN><A CLASS="LN" NAME="282">  282   </A>      <SPAN CLASS="KW">exit</SPAN>(-1);                        <SPAN CLASS="CT">//return(1);</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="283">  283   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="284">  284   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="285">  285   </A>    actOutFieldInfo[i].pslf = (<SPAN CLASS="DT">char</SPAN> *)mxGetData(actOutFieldInfo[i].pmxa);
+</SPAN><SPAN><A CLASS="LN" NAME="286">  286   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="287">  287   </A>    <SPAN CLASS="CT">// create and attach child data out struct</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="288">  288   </A>    dims[1] = 1;
+</SPAN><SPAN><A CLASS="LN" NAME="289">  289   </A>    paOutStruct = mxCreateStructArray(2, dims, 1, outStructFieldNames);
+</SPAN><SPAN><A CLASS="LN" NAME="290">  290   </A>    <SPAN CLASS="KW">if</SPAN> (paOutStruct == NULL) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="291">  291   </A>      m_utils.printErr(TLMG_ERR_MAT_INIT,
+</SPAN><SPAN><A CLASS="LN" NAME="292">  292   </A>                       <FONT COLOR="#1122ff">&quot;## ERROR: Could not create mx data out struct for MAT file %s\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="293">  293   </A>                       m_filename);
+</SPAN><SPAN><A CLASS="LN" NAME="294">  294   </A>      <SPAN CLASS="KW">exit</SPAN>(-1);                        <SPAN CLASS="CT">//return(1);</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="295">  295   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="296">  296   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="297">  297   </A>    mxSetFieldByNumber(paOutStruct, 0, 0, actOutFieldInfo[i].pmxa);
+</SPAN><SPAN><A CLASS="LN" NAME="298">  298   </A>    mxSetFieldByNumber(m_sclog, 0, i, paOutStruct);
+</SPAN><SPAN><A CLASS="LN" NAME="299">  299   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="300">  300   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="301">  301   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="302">  302   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="303">  303   </A><SPAN CLASS="DT">int</SPAN> mw_matfile_tb::openMat()
+</SPAN><SPAN><A CLASS="LN" NAME="304">  304   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="305">  305   </A>  m_pmat = matOpen(m_filename, m_perm);
+</SPAN><SPAN><A CLASS="LN" NAME="306">  306   </A>  <SPAN CLASS="KW">if</SPAN> (m_pmat == NULL) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="307">  307   </A>    printf(<FONT COLOR="#1122ff">&quot;## ERROR: opening file %s with permissions %s\n&quot;</FONT>, m_filename, m_perm);
+</SPAN><SPAN><A CLASS="LN" NAME="308">  308   </A>    <SPAN CLASS="KW">return</SPAN> -1;
+</SPAN><SPAN><A CLASS="LN" NAME="309">  309   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="310">  310   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="311">  311   </A>  <SPAN CLASS="KW">return</SPAN> 0;
+</SPAN><SPAN><A CLASS="LN" NAME="312">  312   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="313">  313   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="314">  314   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="315">  315   </A><SPAN CLASS="DT">int</SPAN> mw_matfile_tb::readSclog()
+</SPAN><SPAN><A CLASS="LN" NAME="316">  316   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="317">  317   </A>  m_sclog = matGetVariable(m_pmat, m_matVar);
+</SPAN><SPAN><A CLASS="LN" NAME="318">  318   </A>  <SPAN CLASS="KW">if</SPAN> (m_sclog == NULL) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="319">  319   </A>    printf(<FONT COLOR="#1122ff">&quot;## ERROR: could not get %s variable in file %s\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="320">  320   </A>           m_matVar, m_filename);
+</SPAN><SPAN><A CLASS="LN" NAME="321">  321   </A>    <SPAN CLASS="KW">return</SPAN> -1;
+</SPAN><SPAN><A CLASS="LN" NAME="322">  322   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="323">  323   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="324">  324   </A>  <SPAN CLASS="KW">if</SPAN> (!mxIsStruct(m_sclog)) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="325">  325   </A>    printf(<FONT COLOR="#1122ff">&quot;## ERROR: var %s was not a struct.\n&quot;</FONT>, m_matVar);
+</SPAN><SPAN><A CLASS="LN" NAME="326">  326   </A>    <SPAN CLASS="KW">return</SPAN> -1;
+</SPAN><SPAN><A CLASS="LN" NAME="327">  327   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="328">  328   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="329">  329   </A>  <SPAN CLASS="KW">return</SPAN> 0;
+</SPAN><SPAN><A CLASS="LN" NAME="330">  330   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="331">  331   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="332">  332   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="333">  333   </A><SPAN CLASS="DT">int</SPAN> mw_matfile_tb::writeSclog()
+</SPAN><SPAN><A CLASS="LN" NAME="334">  334   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="335">  335   </A>  <SPAN CLASS="KW">if</SPAN> (matPutVariable(m_pmat, m_matVar, m_sclog)) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="336">  336   </A>    printf(<FONT COLOR="#1122ff">&quot;## ERROR: Could not write MAT file %s.\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="337">  337   </A>           m_filename);
+</SPAN><SPAN><A CLASS="LN" NAME="338">  338   </A>    <SPAN CLASS="KW">return</SPAN> -1;
+</SPAN><SPAN><A CLASS="LN" NAME="339">  339   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="340">  340   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="341">  341   </A>  <SPAN CLASS="KW">return</SPAN> 0;
+</SPAN><SPAN><A CLASS="LN" NAME="342">  342   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="343">  343   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="344">  344   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="345">  345   </A><SPAN CLASS="CT">// Vector/MAT</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="346">  346   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="347">  347   </A><A HREF="mw_support_tb_h.html#fcn_mw_vecmat_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_vecmat_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_vecmat_tb</FONT></A>::<A HREF="mw_support_tb_h.html#fcn_mw_vecmat_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_vecmat_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_vecmat_tb</FONT></A>(
+</SPAN><SPAN><A CLASS="LN" NAME="348">  348   </A>  <A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A> &amp; utils,
+</SPAN><SPAN><A CLASS="LN" NAME="349">  349   </A>  <A HREF="mw_support_tb_h.html#type_mw_portinfovec_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_portinfovec_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_portinfovec_tb</FONT></A> &amp; inFieldInfo,
+</SPAN><SPAN><A CLASS="LN" NAME="350">  350   </A>  <A HREF="mw_support_tb_h.html#type_mw_portinfovec_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_portinfovec_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_portinfovec_tb</FONT></A> &amp; actOutFieldInfo,
+</SPAN><SPAN><A CLASS="LN" NAME="351">  351   </A>  <A HREF="mw_support_tb_h.html#type_mw_portinfovec_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_portinfovec_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_portinfovec_tb</FONT></A> &amp; expOutFieldInfo) :
+</SPAN><SPAN><A CLASS="LN" NAME="352">  352   </A>  m_utils(utils),
+</SPAN><SPAN><A CLASS="LN" NAME="353">  353   </A>  m_inFieldInfo(inFieldInfo),
+</SPAN><SPAN><A CLASS="LN" NAME="354">  354   </A>  m_actOutFieldInfo(actOutFieldInfo),
+</SPAN><SPAN><A CLASS="LN" NAME="355">  355   </A>  m_expOutFieldInfo(expOutFieldInfo),
+</SPAN><SPAN><A CLASS="LN" NAME="356">  356   </A>  m_vecCountIn(0),
+</SPAN><SPAN><A CLASS="LN" NAME="357">  357   </A>  m_vecCountOut(0),
+</SPAN><SPAN><A CLASS="LN" NAME="358">  358   </A>  m_vecMiscompares(0),
+</SPAN><SPAN><A CLASS="LN" NAME="359">  359   </A>  m_matInfoIn(m_utils, INPUT_VECTOR_FILE, NUM_IN_PORTS, NUM_OUT_PORTS,
+</SPAN><SPAN><A CLASS="LN" NAME="360">  360   </A>              <FONT COLOR="#1122ff">&quot;r&quot;</FONT>, <FONT COLOR="#1122ff">&quot;tlmg_tlminvec&quot;</FONT>, NUM_VECTORS),
+</SPAN><SPAN><A CLASS="LN" NAME="361">  361   </A>  m_matInfoOut(m_utils, OUTPUT_VECTOR_FILE, 0, NUM_OUT_PORTS,
+</SPAN><SPAN><A CLASS="LN" NAME="362">  362   </A>               <FONT COLOR="#1122ff">&quot;w&quot;</FONT>, <FONT COLOR="#1122ff">&quot;tlmg_tlmoutvec&quot;</FONT>, NUM_VECTORS)
+</SPAN><SPAN><A CLASS="LN" NAME="363">  363   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="364">  364   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="365">  365   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="366">  366   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="367">  367   </A><A HREF="mw_support_tb_h.html#fcn_mw_vecmat_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_vecmat_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_vecmat_tb</FONT></A>::~<A HREF="mw_support_tb_h.html#fcn_mw_vecmat_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_vecmat_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_vecmat_tb</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="368">  368   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="369">  369   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="370">  370   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="371">  371   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="372">  372   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_vecmat_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_vecmat_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_vecmat_tb</FONT></A>::initialize(
+</SPAN><SPAN><A CLASS="LN" NAME="373">  373   </A>  <A HREF="mw_support_tb_h.html#type_mw_portinfovec_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_portinfovec_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_portinfovec_tb</FONT></A> &amp; inFieldInfo,
+</SPAN><SPAN><A CLASS="LN" NAME="374">  374   </A>  <A HREF="mw_support_tb_h.html#type_mw_portinfovec_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_portinfovec_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_portinfovec_tb</FONT></A> &amp; actOutFieldInfo,
+</SPAN><SPAN><A CLASS="LN" NAME="375">  375   </A>  <A HREF="mw_support_tb_h.html#type_mw_portinfovec_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_portinfovec_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_portinfovec_tb</FONT></A> &amp; expOutFieldInfo)
+</SPAN><SPAN><A CLASS="LN" NAME="376">  376   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="377">  377   </A>  m_matInfoIn.initializeInMatFieldInfo(inFieldInfo, expOutFieldInfo);
+</SPAN><SPAN><A CLASS="LN" NAME="378">  378   </A>  m_matInfoOut.initializeOutMatFieldInfo(expOutFieldInfo, actOutFieldInfo);
+</SPAN><SPAN><A CLASS="LN" NAME="379">  379   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="380">  380   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="381">  381   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="382">  382   </A>bool <A HREF="mw_support_tb_h.html#fcn_mw_vecmat_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_vecmat_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_vecmat_tb</FONT></A>::getNextInput()
+</SPAN><SPAN><A CLASS="LN" NAME="383">  383   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="384">  384   </A>  bool endOfVec = false;
+</SPAN><SPAN><A CLASS="LN" NAME="385">  385   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="386">  386   </A>  <SPAN CLASS="CT">// get stimulus data from MAT and put into rU.</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="387">  387   </A>  <SPAN CLASS="KW">for</SPAN> (<SPAN CLASS="DT">int</SPAN> i=0; i&lt;m_matInfoIn.m_numInFields; i++) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="388">  388   </A>    <SPAN CLASS="DT">int</SPAN> offset = m_vecCountIn*m_inFieldInfo[i].cfsize;
+</SPAN><SPAN><A CLASS="LN" NAME="389">  389   </A>    <SPAN CLASS="KW">if</SPAN> (offset+m_inFieldInfo[i].cfsize-1 &gt; m_inFieldInfo[i].sldsize) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="390">  390   </A>      m_utils.printMsg(TLMG_PRINT_VEC_NUM,
+</SPAN><SPAN><A CLASS="LN" NAME="391">  391   </A>                       <FONT COLOR="#1122ff">&quot;## end of input vectors in MAT file %s for input number %d\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="392">  392   </A>                       m_matInfoIn.m_filename, i);
+</SPAN><SPAN><A CLASS="LN" NAME="393">  393   </A>      endOfVec = true;
+</SPAN><SPAN><A CLASS="LN" NAME="394">  394   </A>    <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="395">  395   </A>      memcpy(m_inFieldInfo[i].pcf, m_inFieldInfo[i].pslf+offset, m_inFieldInfo[i]
+</SPAN><SPAN><A CLASS="LN" NAME="396">  396   </A>             .
+</SPAN><SPAN><A CLASS="LN" NAME="397">  397   </A>             cfsize);
+</SPAN><SPAN><A CLASS="LN" NAME="398">  398   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="399">  399   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="400">  400   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="401">  401   </A>  <SPAN CLASS="KW">if</SPAN> (!endOfVec) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="402">  402   </A>    m_utils.printMsg(TLMG_PRINT_VEC_NUM,
+</SPAN><SPAN><A CLASS="LN" NAME="403">  403   </A>                     <FONT COLOR="#1122ff">&quot;## vec %5d:\n##\t initialized input dataset\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="404">  404   </A>                     m_vecCountIn);
+</SPAN><SPAN><A CLASS="LN" NAME="405">  405   </A>    m_vecCountIn++;
+</SPAN><SPAN><A CLASS="LN" NAME="406">  406   </A>    <SPAN CLASS="KW">if</SPAN> ((!((m_vecCountIn-1) % 100)) &amp;&amp; (m_vecCountIn != 1)) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="407">  407   </A>      m_utils.printMsg(TLMG_PRINT_VEC_PROGRESS_DOT, <FONT COLOR="#1122ff">&quot;.\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="408">  408   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="409">  409   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="410">  410   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="411">  411   </A>  <SPAN CLASS="KW">return</SPAN> endOfVec;
+</SPAN><SPAN><A CLASS="LN" NAME="412">  412   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="413">  413   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="414">  414   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="415">  415   </A>bool <A HREF="mw_support_tb_h.html#fcn_mw_vecmat_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_vecmat_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_vecmat_tb</FONT></A>::getNextExpectedOutput()
+</SPAN><SPAN><A CLASS="LN" NAME="416">  416   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="417">  417   </A>  bool endOfVec = false;
+</SPAN><SPAN><A CLASS="LN" NAME="418">  418   </A>  <SPAN CLASS="KW">for</SPAN> (<SPAN CLASS="DT">int</SPAN> i=0; i&lt;m_matInfoIn.m_numOutFields; i++) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="419">  419   </A>    <SPAN CLASS="DT">int</SPAN> offset = m_vecCountOut*m_expOutFieldInfo[i].cfsize;
+</SPAN><SPAN><A CLASS="LN" NAME="420">  420   </A>    <SPAN CLASS="KW">if</SPAN> (offset+m_expOutFieldInfo[i].cfsize == m_expOutFieldInfo[i].sldsize) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="421">  421   </A>      m_utils.printMsg(TLMG_PRINT_VEC_NUM,
+</SPAN><SPAN><A CLASS="LN" NAME="422">  422   </A>                       <FONT COLOR="#1122ff">&quot;## end of output vectors in MAT file %s for output number %d\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="423">  423   </A>                       m_matInfoIn.m_filename, i);
+</SPAN><SPAN><A CLASS="LN" NAME="424">  424   </A>      endOfVec = true;
+</SPAN><SPAN><A CLASS="LN" NAME="425">  425   </A>    <B>}</B> <SPAN CLASS="KW">else</SPAN> <SPAN CLASS="KW">if</SPAN> (offset+m_expOutFieldInfo[i].cfsize &gt; m_expOutFieldInfo[i].sldsize)
+</SPAN><SPAN><A CLASS="LN" NAME="426">  426   </A>    <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="427">  427   </A>      <SPAN CLASS="CT">// error</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="428">  428   </A>      endOfVec = true;
+</SPAN><SPAN><A CLASS="LN" NAME="429">  429   </A>      <SPAN CLASS="KW">return</SPAN> endOfVec;
+</SPAN><SPAN><A CLASS="LN" NAME="430">  430   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="431">  431   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="432">  432   </A>    memcpy(m_expOutFieldInfo[i].pcf, m_expOutFieldInfo[i].pslf+offset,
+</SPAN><SPAN><A CLASS="LN" NAME="433">  433   </A>           m_expOutFieldInfo[i].cfsize);
+</SPAN><SPAN><A CLASS="LN" NAME="434">  434   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="435">  435   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="436">  436   </A>  m_utils.printMsg(TLMG_PRINT_VEC_NUM,
+</SPAN><SPAN><A CLASS="LN" NAME="437">  437   </A>                   <FONT COLOR="#1122ff">&quot;##\t initialized expected output dataset\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="438">  438   </A>                   m_vecCountOut);
+</SPAN><SPAN><A CLASS="LN" NAME="439">  439   </A>  <SPAN CLASS="KW">return</SPAN> endOfVec;
+</SPAN><SPAN><A CLASS="LN" NAME="440">  440   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="441">  441   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="442">  442   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="443">  443   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_vecmat_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_vecmat_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_vecmat_tb</FONT></A>::putNextActualOutput()
+</SPAN><SPAN><A CLASS="LN" NAME="444">  444   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="445">  445   </A>  <SPAN CLASS="DT">int</SPAN> offset;
+</SPAN><SPAN><A CLASS="LN" NAME="446">  446   </A>  <SPAN CLASS="KW">for</SPAN> (<SPAN CLASS="DT">int</SPAN> i=0; i&lt;m_matInfoOut.m_numOutFields; i++) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="447">  447   </A>    offset = m_vecCountOut*m_actOutFieldInfo[i].cfsize;
+</SPAN><SPAN><A CLASS="LN" NAME="448">  448   </A>    <SPAN CLASS="KW">if</SPAN> (offset+m_actOutFieldInfo[i].cfsize-1 &gt; m_actOutFieldInfo[i].sldsize) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="449">  449   </A>      m_utils.printErr(TLMG_ERR_MAT_WRITE,
+</SPAN><SPAN><A CLASS="LN" NAME="450">  450   </A>                       <FONT COLOR="#1122ff">&quot;## ERROR: cannot write actual output data at vec %d, field %d because mxArray is not large enough.\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="451">  451   </A>                       m_vecCountOut, i);
+</SPAN><SPAN><A CLASS="LN" NAME="452">  452   </A>      <SPAN CLASS="KW">return</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="453">  453   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="454">  454   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="455">  455   </A>    memcpy(m_actOutFieldInfo[i].pslf+offset, m_actOutFieldInfo[i].pcf,
+</SPAN><SPAN><A CLASS="LN" NAME="456">  456   </A>           m_actOutFieldInfo[i].cfsize);
+</SPAN><SPAN><A CLASS="LN" NAME="457">  457   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="458">  458   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="459">  459   </A>  m_utils.printMsg(TLMG_PRINT_VEC_NUM,
+</SPAN><SPAN><A CLASS="LN" NAME="460">  460   </A>                   <FONT COLOR="#1122ff">&quot;##\t wrote actual output dataset to MAT file buffer.\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="461">  461   </A>                   m_vecCountOut);
+</SPAN><SPAN><A CLASS="LN" NAME="462">  462   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="463">  463   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="464">  464   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="465">  465   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_vecmat_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_vecmat_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_vecmat_tb</FONT></A>::compareResult()
+</SPAN><SPAN><A CLASS="LN" NAME="466">  466   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="467">  467   </A>  bool hadMiscompare = false;
+</SPAN><SPAN><A CLASS="LN" NAME="468">  468   </A>  <SPAN CLASS="KW">for</SPAN> (<SPAN CLASS="DT">int</SPAN> i=0; i&lt;m_matInfoIn.m_numOutFields; i++) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="469">  469   </A>    <SPAN CLASS="KW">if</SPAN> (memcmp(m_expOutFieldInfo[i].pcf, m_actOutFieldInfo[i].pcf,
+</SPAN><SPAN><A CLASS="LN" NAME="470">  470   </A>               m_expOutFieldInfo[i].cfsize)) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="471">  471   </A>      m_utils.printErr(TLMG_ERR_MISCOMPARE,
+</SPAN><SPAN><A CLASS="LN" NAME="472">  472   </A>                       <FONT COLOR="#1122ff">&quot;## ERROR: vec %d miscompare at output %d\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="473">  473   </A>                       m_vecCountOut, i);
+</SPAN><SPAN><A CLASS="LN" NAME="474">  474   </A>      hadMiscompare = true;
+</SPAN><SPAN><A CLASS="LN" NAME="475">  475   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="476">  476   </A>      <SPAN CLASS="CT">//printf("## vector %d, field %d\n", m_vecCountOut, i);</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="477">  477   </A>      <SPAN CLASS="KW">for</SPAN> (<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> j=0; j&lt;m_expOutFieldInfo[i].cfsize; j++) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="478">  478   </A>        m_utils.printMsg(TLMG_PRINT_VEC_BYTE_BUF_ON_MISCOMPARE,
+</SPAN><SPAN><A CLASS="LN" NAME="479">  479   </A>                         <FONT COLOR="#1122ff">&quot;\tbyte %3d: exp=%2x act=%2x\n&quot;</FONT>, j,
+</SPAN><SPAN><A CLASS="LN" NAME="480">  480   </A>                         (*(m_expOutFieldInfo[i].pcf+j)&amp;0xff),
+</SPAN><SPAN><A CLASS="LN" NAME="481">  481   </A>                         (*(m_actOutFieldInfo[i].pcf+j)&amp;0xff));
+</SPAN><SPAN><A CLASS="LN" NAME="482">  482   </A>      <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="483">  483   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="484">  484   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="485">  485   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="486">  486   </A>  <SPAN CLASS="KW">if</SPAN> (hadMiscompare) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="487">  487   </A>    <SPAN CLASS="KW">if</SPAN> (m_vecMiscompares++ == TLMG_MAX_NUM_MISCOMPARES) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="488">  488   </A>      m_utils.turnOffMsgKind(TLMG_PRINT_VEC_BYTE_BUF_ON_MISCOMPARE);
+</SPAN><SPAN><A CLASS="LN" NAME="489">  489   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="490">  490   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="491">  491   </A>    m_utils.printMsg(TLMG_PRINT_VEC_COMPARE_OK,
+</SPAN><SPAN><A CLASS="LN" NAME="492">  492   </A>                     <FONT COLOR="#1122ff">&quot;##\t actual output dataset did not match expected output dataset\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="493">  493   </A>  <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="494">  494   </A>    m_utils.printMsg(TLMG_PRINT_VEC_COMPARE_OK,
+</SPAN><SPAN><A CLASS="LN" NAME="495">  495   </A>                     <FONT COLOR="#1122ff">&quot;##\t actual output dataset matched expected output dataset\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="496">  496   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="497">  497   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="498">  498   </A>  m_vecCountOut++;
+</SPAN><SPAN><A CLASS="LN" NAME="499">  499   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="500">  500   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="501">  501   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="502">  502   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_vecmat_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_vecmat_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_vecmat_tb</FONT></A>::<A NAME="fcn_terminate">terminate</A>()
+</SPAN><SPAN><A CLASS="LN" NAME="503">  503   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="504">  504   </A>  m_utils.printMsg(TLMG_PRINT_END_OF_SIM,
+</SPAN><SPAN><A CLASS="LN" NAME="505">  505   </A>                   <FONT COLOR="#1122ff">&quot;\n&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="506">  506   </A>                   <FONT COLOR="#1122ff">&quot;#############################################\n&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="507">  507   </A>                   <FONT COLOR="#1122ff">&quot;## END OF VECTORS. PLAYED %5d VECTORS.   ##\n&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="508">  508   </A>                   <FONT COLOR="#1122ff">&quot;## DATA MISCOMPARES     : %5d            ##\n&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="509">  509   </A>                   <FONT COLOR="#1122ff">&quot;## TRANSPORT ERRORS     : %5s            ##\n&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="510">  510   </A>                   <FONT COLOR="#1122ff">&quot;## MAT FILE WRITE ERRORS: %5s            ##\n&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="511">  511   </A>                   <FONT COLOR="#1122ff">&quot;#############################################\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="512">  512   </A>                   m_vecCountIn, m_vecMiscompares,
+</SPAN><SPAN><A CLASS="LN" NAME="513">  513   </A>                   (m_utils.getErrorStatus() &amp; TLMG_ERR_TRANSPORT) ? <FONT COLOR="#1122ff">&quot;YES&quot;</FONT> :
+</SPAN><SPAN><A CLASS="LN" NAME="514">  514   </A>                   <FONT COLOR="#1122ff">&quot;NO&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="515">  515   </A>                   (m_utils.getErrorStatus() &amp; TLMG_ERR_MAT_WRITE) ? <FONT COLOR="#1122ff">&quot;YES&quot;</FONT> :
+</SPAN><SPAN><A CLASS="LN" NAME="516">  516   </A>                   <FONT COLOR="#1122ff">&quot;NO&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="517">  517   </A>  <SPAN CLASS="KW">if</SPAN> (m_matInfoOut.writeSclog()) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="518">  518   </A>    m_utils.markError(TLMG_ERR_MAT_WRITE);
+</SPAN><SPAN><A CLASS="LN" NAME="519">  519   </A>    <SPAN CLASS="KW">return</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="520">  520   </A>  <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="521">  521   </A>    m_utils.printMsg(TLMG_PRINT_END_OF_SIM, <FONT COLOR="#1122ff">&quot;##\t Wrote results MAT file.\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="522">  522   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="523">  523   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="524">  524   </A>  <SPAN CLASS="CT">// destroy mx allocated memory done in destructors of instantiated</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="525">  525   </A>  <SPAN CLASS="CT">// structures.</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="526">  526   </A>  <SPAN CLASS="CT">// CHECKME: need to ensure FieldInfo destroyed before MatInfo.</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="527">  527   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="528">  528   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="529">  529   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="530">  530   </A><SPAN CLASS="CT">// Synchronization</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="531">  531   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="532">  532   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="533">  533   </A>mw_sync_tb::mw_sync_tb(<A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A> &amp; utils, TimingModeT tmode, <SPAN CLASS="DT">int</SPAN> quantum) :
+</SPAN><SPAN><A CLASS="LN" NAME="534">  534   </A>  m_utils(utils),
+</SPAN><SPAN><A CLASS="LN" NAME="535">  535   </A>  m_timingMode(tmode),
+</SPAN><SPAN><A CLASS="LN" NAME="536">  536   </A>  m_syncUntimed(utils),
+</SPAN><SPAN><A CLASS="LN" NAME="537">  537   </A>  m_syncFunctimed(utils),
+</SPAN><SPAN><A CLASS="LN" NAME="538">  538   </A>  m_syncQuantum(utils, quantum)
+</SPAN><SPAN><A CLASS="LN" NAME="539">  539   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="540">  540   </A>  setTimingMode(tmode);
+</SPAN><SPAN><A CLASS="LN" NAME="541">  541   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="542">  542   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="543">  543   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="544">  544   </A>mw_sync_tb::~mw_sync_tb()
+</SPAN><SPAN><A CLASS="LN" NAME="545">  545   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="546">  546   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="547">  547   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="548">  548   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="549">  549   </A>mw_sync_tb::TimingModeT mw_sync_tb::setTimingMode(TimingModeT tmode)
+</SPAN><SPAN><A CLASS="LN" NAME="550">  550   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="551">  551   </A>  TimingModeT tmp = m_timingMode;
+</SPAN><SPAN><A CLASS="LN" NAME="552">  552   </A>  m_timingMode = tmode;
+</SPAN><SPAN><A CLASS="LN" NAME="553">  553   </A>  <SPAN CLASS="KW">switch</SPAN> (tmode) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="554">  554   </A>   <SPAN CLASS="KW">case</SPAN> Untimed:
+</SPAN><SPAN><A CLASS="LN" NAME="555">  555   </A>    m_activeSyncObj = &amp;m_syncUntimed;
+</SPAN><SPAN><A CLASS="LN" NAME="556">  556   </A>    <SPAN CLASS="KW">break</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="557">  557   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="558">  558   </A>   <SPAN CLASS="KW">case</SPAN> FunctionallyTimed:
+</SPAN><SPAN><A CLASS="LN" NAME="559">  559   </A>    m_activeSyncObj = &amp;m_syncFunctimed;
+</SPAN><SPAN><A CLASS="LN" NAME="560">  560   </A>    <SPAN CLASS="KW">break</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="561">  561   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="562">  562   </A>   <SPAN CLASS="KW">case</SPAN> <A HREF="mw_support_tb_h.html#var_LooselyTimed" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_LooselyTimed');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">LooselyTimed</FONT></A>:
+</SPAN><SPAN><A CLASS="LN" NAME="563">  563   </A>    m_activeSyncObj = &amp;m_syncQuantum;
+</SPAN><SPAN><A CLASS="LN" NAME="564">  564   </A>    <SPAN CLASS="KW">break</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="565">  565   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="566">  566   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="567">  567   </A>  <SPAN CLASS="KW">return</SPAN> tmp;
+</SPAN><SPAN><A CLASS="LN" NAME="568">  568   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="569">  569   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="570">  570   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="571">  571   </A><SPAN CLASS="DT">void</SPAN> mw_sync_tb::<A HREF="mw_support_tb_h.html#fcn_incLocalTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_incLocalTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">incLocalTime</FONT></A>(sc_time t)
+</SPAN><SPAN><A CLASS="LN" NAME="572">  572   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="573">  573   </A>  m_activeSyncObj-&gt;incLocalTime(t);
+</SPAN><SPAN><A CLASS="LN" NAME="574">  574   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="575">  575   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="576">  576   </A><SPAN CLASS="DT">void</SPAN> mw_sync_tb::<A HREF="mw_support_tb_cpp.html#fcn_setLocalTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_setLocalTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">setLocalTime</FONT></A>(sc_time t)
+</SPAN><SPAN><A CLASS="LN" NAME="577">  577   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="578">  578   </A>  m_activeSyncObj-&gt;setLocalTime(t);
+</SPAN><SPAN><A CLASS="LN" NAME="579">  579   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="580">  580   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="581">  581   </A>sc_time mw_sync_tb::<A HREF="mw_support_tb_cpp.html#fcn_getLocalTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_getLocalTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">getLocalTime</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="582">  582   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="583">  583   </A>  <SPAN CLASS="KW">return</SPAN> m_activeSyncObj-&gt;getLocalTime();
+</SPAN><SPAN><A CLASS="LN" NAME="584">  584   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="585">  585   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="586">  586   </A><SPAN CLASS="DT">void</SPAN> mw_sync_tb::<A HREF="mw_support_tb_cpp.html#fcn_syncToExplicitTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_syncToExplicitTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">syncToExplicitTime</FONT></A>(sc_time t)
+</SPAN><SPAN><A CLASS="LN" NAME="587">  587   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="588">  588   </A>  m_activeSyncObj-&gt;syncToExplicitTime(t);
+</SPAN><SPAN><A CLASS="LN" NAME="589">  589   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="590">  590   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="591">  591   </A><SPAN CLASS="DT">void</SPAN> mw_sync_tb::syncToLocalTime()
+</SPAN><SPAN><A CLASS="LN" NAME="592">  592   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="593">  593   </A>  m_activeSyncObj-&gt;syncToLocalTime();
+</SPAN><SPAN><A CLASS="LN" NAME="594">  594   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="595">  595   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="596">  596   </A><SPAN CLASS="DT">void</SPAN> mw_sync_tb::<A HREF="mw_support_tb_cpp.html#fcn_syncToDataReady" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_syncToDataReady');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">syncToDataReady</FONT></A>(sc_core::sc_in&lt;bool&gt; &amp; irq)
+</SPAN><SPAN><A CLASS="LN" NAME="597">  597   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="598">  598   </A>  m_activeSyncObj-&gt;syncToDataReady(irq);
+</SPAN><SPAN><A CLASS="LN" NAME="599">  599   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="600">  600   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="601">  601   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="602">  602   </A><A HREF="mw_support_tb_h.html#fcn_mw_syncuntimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncuntimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncuntimed_tb</FONT></A>::<A HREF="mw_support_tb_h.html#fcn_mw_syncuntimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncuntimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncuntimed_tb</FONT></A>(<A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A> &amp; utils) :
+</SPAN><SPAN><A CLASS="LN" NAME="603">  603   </A>  m_utils(utils)
+</SPAN><SPAN><A CLASS="LN" NAME="604">  604   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="605">  605   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="606">  606   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="607">  607   </A><A HREF="mw_support_tb_h.html#fcn_mw_syncuntimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncuntimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncuntimed_tb</FONT></A>::~<A HREF="mw_support_tb_h.html#fcn_mw_syncuntimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncuntimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncuntimed_tb</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="608">  608   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="609">  609   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="610">  610   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="611">  611   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncuntimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncuntimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncuntimed_tb</FONT></A>::<A HREF="mw_support_tb_h.html#fcn_incLocalTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_incLocalTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">incLocalTime</FONT></A>(sc_time t)
+</SPAN><SPAN><A CLASS="LN" NAME="612">  612   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="613">  613   </A>  syncToLocalTime();
+</SPAN><SPAN><A CLASS="LN" NAME="614">  614   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="615">  615   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="616">  616   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncuntimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncuntimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncuntimed_tb</FONT></A>::<A HREF="mw_support_tb_cpp.html#fcn_setLocalTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_setLocalTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">setLocalTime</FONT></A>(sc_time t)
+</SPAN><SPAN><A CLASS="LN" NAME="617">  617   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="618">  618   </A>  <SPAN CLASS="CT">// do nothing</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="619">  619   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="620">  620   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="621">  621   </A>sc_time <A HREF="mw_support_tb_h.html#fcn_mw_syncuntimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncuntimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncuntimed_tb</FONT></A>::<A HREF="mw_support_tb_cpp.html#fcn_getLocalTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_getLocalTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">getLocalTime</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="622">  622   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="623">  623   </A>  <SPAN CLASS="KW">return</SPAN> SC_ZERO_TIME;
+</SPAN><SPAN><A CLASS="LN" NAME="624">  624   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="625">  625   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="626">  626   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncuntimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncuntimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncuntimed_tb</FONT></A>::<A HREF="mw_support_tb_cpp.html#fcn_syncToExplicitTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_syncToExplicitTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">syncToExplicitTime</FONT></A>(sc_time t)
+</SPAN><SPAN><A CLASS="LN" NAME="627">  627   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="628">  628   </A>  m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="629">  629   </A>                   <FONT COLOR="#1122ff">&quot;##\t waiting for explicit amount of time (time = 0 ns + 0 ns).\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="630">  630   </A>  wait(SC_ZERO_TIME);
+</SPAN><SPAN><A CLASS="LN" NAME="631">  631   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="632">  632   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="633">  633   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncuntimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncuntimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncuntimed_tb</FONT></A>::syncToLocalTime()
+</SPAN><SPAN><A CLASS="LN" NAME="634">  634   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="635">  635   </A>  m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="636">  636   </A>                   <FONT COLOR="#1122ff">&quot;##\t syncing to local time offset (delay = 0 ns).\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="637">  637   </A>  wait(SC_ZERO_TIME);
+</SPAN><SPAN><A CLASS="LN" NAME="638">  638   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="639">  639   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="640">  640   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncuntimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncuntimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncuntimed_tb</FONT></A>::<A HREF="mw_support_tb_cpp.html#fcn_syncToDataReady" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_syncToDataReady');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">syncToDataReady</FONT></A>(sc_core::sc_in&lt;bool&gt; &amp; irq)
+</SPAN><SPAN><A CLASS="LN" NAME="641">  641   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="642">  642   </A>  m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="643">  643   </A>                   <FONT COLOR="#1122ff">&quot;##\t syncing to interrupt signal for data ready in output buffer...\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="644">  644   </A>  <SPAN CLASS="KW">if</SPAN> (irq.read() == true) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="645">  645   </A>    m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="646">  646   </A>                     <FONT COLOR="#1122ff">&quot;##\t...saw interrupt already asserted\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="647">  647   </A>  <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="648">  648   </A>    wait(irq.posedge_event());
+</SPAN><SPAN><A CLASS="LN" NAME="649">  649   </A>    m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS, <FONT COLOR="#1122ff">&quot;##\t...saw interrupt\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="650">  650   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="651">  651   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="652">  652   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="653">  653   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="654">  654   </A><A HREF="mw_support_tb_h.html#fcn_mw_syncfunctimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncfunctimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncfunctimed_tb</FONT></A>::<A HREF="mw_support_tb_h.html#fcn_mw_syncfunctimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncfunctimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncfunctimed_tb</FONT></A>(<A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A> &amp; utils) :
+</SPAN><SPAN><A CLASS="LN" NAME="655">  655   </A>  m_utils(utils), m_delay(SC_ZERO_TIME)
+</SPAN><SPAN><A CLASS="LN" NAME="656">  656   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="657">  657   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="658">  658   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="659">  659   </A><A HREF="mw_support_tb_h.html#fcn_mw_syncfunctimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncfunctimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncfunctimed_tb</FONT></A>::~<A HREF="mw_support_tb_h.html#fcn_mw_syncfunctimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncfunctimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncfunctimed_tb</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="660">  660   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="661">  661   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="662">  662   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="663">  663   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncfunctimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncfunctimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncfunctimed_tb</FONT></A>::<A HREF="mw_support_tb_h.html#fcn_incLocalTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_incLocalTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">incLocalTime</FONT></A>(sc_time t)
+</SPAN><SPAN><A CLASS="LN" NAME="664">  664   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="665">  665   </A>  m_delay += t;
+</SPAN><SPAN><A CLASS="LN" NAME="666">  666   </A>  syncToLocalTime();
+</SPAN><SPAN><A CLASS="LN" NAME="667">  667   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="668">  668   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="669">  669   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncfunctimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncfunctimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncfunctimed_tb</FONT></A>::<A HREF="mw_support_tb_cpp.html#fcn_setLocalTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_setLocalTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">setLocalTime</FONT></A>(sc_time t)
+</SPAN><SPAN><A CLASS="LN" NAME="670">  670   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="671">  671   </A>  m_delay = t;
+</SPAN><SPAN><A CLASS="LN" NAME="672">  672   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="673">  673   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="674">  674   </A>sc_time <A HREF="mw_support_tb_h.html#fcn_mw_syncfunctimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncfunctimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncfunctimed_tb</FONT></A>::<A HREF="mw_support_tb_cpp.html#fcn_getLocalTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_getLocalTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">getLocalTime</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="675">  675   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="676">  676   </A>  <SPAN CLASS="KW">return</SPAN> m_delay;
+</SPAN><SPAN><A CLASS="LN" NAME="677">  677   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="678">  678   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="679">  679   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncfunctimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncfunctimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncfunctimed_tb</FONT></A>::<A HREF="mw_support_tb_cpp.html#fcn_syncToExplicitTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_syncToExplicitTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">syncToExplicitTime</FONT></A>(sc_time t)
+</SPAN><SPAN><A CLASS="LN" NAME="680">  680   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="681">  681   </A>  m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="682">  682   </A>                   <FONT COLOR="#1122ff">&quot;##\t waiting for explicit amount of time (time = %s + %s).\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="683">  683   </A>                   m_delay.to_string().c_str(), t.to_string().
+</SPAN><SPAN><A CLASS="LN" NAME="684">  684   </A>                   c_str() );
+</SPAN><SPAN><A CLASS="LN" NAME="685">  685   </A>  wait(m_delay);
+</SPAN><SPAN><A CLASS="LN" NAME="686">  686   </A>  wait(t);
+</SPAN><SPAN><A CLASS="LN" NAME="687">  687   </A>  m_delay = SC_ZERO_TIME;
+</SPAN><SPAN><A CLASS="LN" NAME="688">  688   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="689">  689   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="690">  690   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncfunctimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncfunctimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncfunctimed_tb</FONT></A>::syncToLocalTime()
+</SPAN><SPAN><A CLASS="LN" NAME="691">  691   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="692">  692   </A>  m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="693">  693   </A>                   <FONT COLOR="#1122ff">&quot;##\t syncing to local time offset (delay = %s).\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="694">  694   </A>                   (m_delay.to_string()).c_str() );
+</SPAN><SPAN><A CLASS="LN" NAME="695">  695   </A>  wait(m_delay);
+</SPAN><SPAN><A CLASS="LN" NAME="696">  696   </A>  m_delay = SC_ZERO_TIME;
+</SPAN><SPAN><A CLASS="LN" NAME="697">  697   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="698">  698   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="699">  699   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncfunctimed_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncfunctimed_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncfunctimed_tb</FONT></A>::<A HREF="mw_support_tb_cpp.html#fcn_syncToDataReady" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_syncToDataReady');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">syncToDataReady</FONT></A>(sc_core::sc_in&lt;bool&gt; &amp; irq)
+</SPAN><SPAN><A CLASS="LN" NAME="700">  700   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="701">  701   </A>  m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="702">  702   </A>                   <FONT COLOR="#1122ff">&quot;##\t syncing to interrupt signal for data ready in output buffer...\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="703">  703   </A>  <SPAN CLASS="KW">if</SPAN> (irq.read() == true) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="704">  704   </A>    m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="705">  705   </A>                     <FONT COLOR="#1122ff">&quot;##\t...saw interrupt already asserted\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="706">  706   </A>  <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="707">  707   </A>    wait(irq.posedge_event());
+</SPAN><SPAN><A CLASS="LN" NAME="708">  708   </A>    m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS, <FONT COLOR="#1122ff">&quot;##\t...saw interrupt\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="709">  709   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="710">  710   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="711">  711   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="712">  712   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="713">  713   </A><A HREF="mw_support_tb_h.html#fcn_mw_syncquantum_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncquantum_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncquantum_tb</FONT></A>::<A HREF="mw_support_tb_h.html#fcn_mw_syncquantum_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncquantum_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncquantum_tb</FONT></A>(<A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A> &amp; utils, <SPAN CLASS="DT">int</SPAN> quantum) :
+</SPAN><SPAN><A CLASS="LN" NAME="714">  714   </A>  m_utils(utils),
+</SPAN><SPAN><A CLASS="LN" NAME="715">  715   </A>  m_delay(SC_ZERO_TIME),
+</SPAN><SPAN><A CLASS="LN" NAME="716">  716   </A>  m_quantum(quantum)
+</SPAN><SPAN><A CLASS="LN" NAME="717">  717   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="718">  718   </A>  m_qk.set_global_quantum(sc_time(m_quantum, SC_NS));
+</SPAN><SPAN><A CLASS="LN" NAME="719">  719   </A>  m_qk.reset();
+</SPAN><SPAN><A CLASS="LN" NAME="720">  720   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="721">  721   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="722">  722   </A><A HREF="mw_support_tb_h.html#fcn_mw_syncquantum_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncquantum_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncquantum_tb</FONT></A>::~<A HREF="mw_support_tb_h.html#fcn_mw_syncquantum_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncquantum_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncquantum_tb</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="723">  723   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="724">  724   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="725">  725   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="726">  726   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncquantum_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncquantum_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncquantum_tb</FONT></A>::<A HREF="mw_support_tb_h.html#fcn_incLocalTime" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_incLocalTime');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">incLocalTime</FONT></A>(sc_time incTime)
+</SPAN><SPAN><A CLASS="LN" NAME="727">  727   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="728">  728   </A>  m_qk.inc(incTime);
+</SPAN><SPAN><A CLASS="LN" NAME="729">  729   </A>  <SPAN CLASS="KW">if</SPAN> (m_qk.need_sync()) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="730">  730   </A>    m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="731">  731   </A>                     <FONT COLOR="#1122ff">&quot;##\t Quantum reached: syncing to local time offset (delay = %s).\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="732">  732   </A>                     (m_qk.get_local_time().to_string()).c_str() );
+</SPAN><SPAN><A CLASS="LN" NAME="733">  733   </A>    m_qk.sync();
+</SPAN><SPAN><A CLASS="LN" NAME="734">  734   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="735">  735   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="736">  736   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="737">  737   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncquantum_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncquantum_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncquantum_tb</FONT></A>::<A NAME="fcn_setLocalTime">setLocalTime</A>(sc_time locTime)
+</SPAN><SPAN><A CLASS="LN" NAME="738">  738   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="739">  739   </A>  m_qk.set(locTime);
+</SPAN><SPAN><A CLASS="LN" NAME="740">  740   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="741">  741   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="742">  742   </A>sc_time <A HREF="mw_support_tb_h.html#fcn_mw_syncquantum_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncquantum_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncquantum_tb</FONT></A>::<A NAME="fcn_getLocalTime">getLocalTime</A>()
+</SPAN><SPAN><A CLASS="LN" NAME="743">  743   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="744">  744   </A>  <SPAN CLASS="KW">return</SPAN> m_qk.get_local_time();
+</SPAN><SPAN><A CLASS="LN" NAME="745">  745   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="746">  746   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="747">  747   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncquantum_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncquantum_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncquantum_tb</FONT></A>::<A NAME="fcn_syncToExplicitTime">syncToExplicitTime</A>(sc_time time)
+</SPAN><SPAN><A CLASS="LN" NAME="748">  748   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="749">  749   </A>  m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="750">  750   </A>                   <FONT COLOR="#1122ff">&quot;##\t waiting for explicit amount of time (time = %s + %s).\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="751">  751   </A>                   m_qk.get_local_time().to_string().c_str(), time.to_string().
+</SPAN><SPAN><A CLASS="LN" NAME="752">  752   </A>                   c_str() );
+</SPAN><SPAN><A CLASS="LN" NAME="753">  753   </A>  m_qk.sync();
+</SPAN><SPAN><A CLASS="LN" NAME="754">  754   </A>  wait(time);
+</SPAN><SPAN><A CLASS="LN" NAME="755">  755   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="756">  756   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="757">  757   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncquantum_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncquantum_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncquantum_tb</FONT></A>::syncToLocalTime()
+</SPAN><SPAN><A CLASS="LN" NAME="758">  758   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="759">  759   </A>  m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="760">  760   </A>                   <FONT COLOR="#1122ff">&quot;##\t syncing to local time offset (delay = %s).\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="761">  761   </A>                   (m_qk.get_local_time().to_string()).c_str() );
+</SPAN><SPAN><A CLASS="LN" NAME="762">  762   </A>  m_qk.sync();
+</SPAN><SPAN><A CLASS="LN" NAME="763">  763   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="764">  764   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="765">  765   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_syncquantum_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_syncquantum_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_syncquantum_tb</FONT></A>::<A NAME="fcn_syncToDataReady">syncToDataReady</A>(sc_core::sc_in&lt;bool&gt; &amp; irq)
+</SPAN><SPAN><A CLASS="LN" NAME="766">  766   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="767">  767   </A>  m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="768">  768   </A>                   <FONT COLOR="#1122ff">&quot;##\t syncing to interrupt signal for data ready in output buffer...\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="769">  769   </A>  <SPAN CLASS="KW">if</SPAN> (irq.read() == true) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="770">  770   </A>    m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="771">  771   </A>                     <FONT COLOR="#1122ff">&quot;##\t...saw interrupt already asserted\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="772">  772   </A>    <SPAN CLASS="KW">return</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="773">  773   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="774">  774   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="775">  775   </A>  m_qk.sync();
+</SPAN><SPAN><A CLASS="LN" NAME="776">  776   </A>  <SPAN CLASS="KW">if</SPAN> (irq.read() == true) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="777">  777   </A>    m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="778">  778   </A>                     <FONT COLOR="#1122ff">&quot;##\t...saw interrupt already asserted\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="779">  779   </A>    <SPAN CLASS="KW">return</SPAN>;
+</SPAN><SPAN><A CLASS="LN" NAME="780">  780   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="781">  781   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="782">  782   </A>  wait(irq.posedge_event());
+</SPAN><SPAN><A CLASS="LN" NAME="783">  783   </A>  m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS, <FONT COLOR="#1122ff">&quot;##\t...saw interrupt\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="784">  784   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="785">  785   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="786">  786   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="787">  787   </A><SPAN CLASS="CT">// Transaction</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="788">  788   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="789">  789   </A><A HREF="mw_support_tb_h.html#fcn_mw_tr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_tr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_tr_tb</FONT></A>::<A HREF="mw_support_tb_h.html#fcn_mw_tr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_tr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_tr_tb</FONT></A>(<A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A> &amp; utils,
+</SPAN><SPAN><A CLASS="LN" NAME="790">  790   </A>                   mw_sync_tb &amp; sync,
+</SPAN><SPAN><A CLASS="LN" NAME="791">  791   </A>                   <A HREF="model_jxz_tlm_tb_def_h.html#type_mw_tlmsocket_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_tlmsocket_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_tlmsocket_tb</FONT></A> &amp; socket) :
+</SPAN><SPAN><A CLASS="LN" NAME="792">  792   </A>  m_utils(utils),
+</SPAN><SPAN><A CLASS="LN" NAME="793">  793   </A>  m_sync(sync),
+</SPAN><SPAN><A CLASS="LN" NAME="794">  794   </A>  m_socket(socket)
+</SPAN><SPAN><A CLASS="LN" NAME="795">  795   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="796">  796   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="797">  797   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="798">  798   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="799">  799   </A><A HREF="mw_support_tb_h.html#fcn_mw_tr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_tr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_tr_tb</FONT></A>::~<A HREF="mw_support_tb_h.html#fcn_mw_tr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_tr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_tr_tb</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="800">  800   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="801">  801   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="802">  802   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="803">  803   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="804">  804   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_tr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_tr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_tr_tb</FONT></A>::<A NAME="fcn_sendTlmWriteTransaction">sendTlmWriteTransaction</A>(sc_dt::uint64 addr, <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">char</SPAN> *dptr,
+</SPAN><SPAN><A CLASS="LN" NAME="805">  805   </A>  size_t dsize)
+</SPAN><SPAN><A CLASS="LN" NAME="806">  806   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="807">  807   </A>  sc_time delay = m_sync.getLocalTime();
+</SPAN><SPAN><A CLASS="LN" NAME="808">  808   </A>  tlm::tlm_generic_payload gp;
+</SPAN><SPAN><A CLASS="LN" NAME="809">  809   </A>  gp.set_address(addr);
+</SPAN><SPAN><A CLASS="LN" NAME="810">  810   </A>  gp.set_command(tlm::TLM_WRITE_COMMAND);
+</SPAN><SPAN><A CLASS="LN" NAME="811">  811   </A>  gp.set_data_ptr(dptr);
+</SPAN><SPAN><A CLASS="LN" NAME="812">  812   </A>  gp.set_data_length(dsize);
+</SPAN><SPAN><A CLASS="LN" NAME="813">  813   </A>  m_socket-&gt;b_transport(gp, delay);
+</SPAN><SPAN><A CLASS="LN" NAME="814">  814   </A>  tlm::tlm_response_status gp_status = gp.get_response_status();
+</SPAN><SPAN><A CLASS="LN" NAME="815">  815   </A>  <SPAN CLASS="KW">if</SPAN> (gp_status != tlm::TLM_OK_RESPONSE) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="816">  816   </A>    m_utils.printErr(TLMG_ERR_TRANSPORT, <FONT COLOR="#1122ff">&quot;## ERROR: TLM write error.\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="817">  817   </A>  <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="818">  818   </A>    m_utils.printMsg(TLMG_PRINT_TRANSPORT,
+</SPAN><SPAN><A CLASS="LN" NAME="819">  819   </A>                     <FONT COLOR="#1122ff">&quot;##\t TLM write transaction to target component at address %#08x\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="820">  820   </A>                     (<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN>) addr);
+</SPAN><SPAN><A CLASS="LN" NAME="821">  821   </A>    <SPAN CLASS="KW">if</SPAN> (addr == (<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN>) COMSTAT_REG_ADDR) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="822">  822   </A>      m_utils.printMsg(TLMG_PRINT_CSR_TRANSPORT,
+</SPAN><SPAN><A CLASS="LN" NAME="823">  823   </A>                       <FONT COLOR="#1122ff">&quot;##\t (Command/Status reg data value = %#010x)\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="824">  824   </A>                       *((<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> *) dptr));
+</SPAN><SPAN><A CLASS="LN" NAME="825">  825   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="826">  826   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="827">  827   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="828">  828   </A>  m_sync.setLocalTime(delay);
+</SPAN><SPAN><A CLASS="LN" NAME="829">  829   </A>  m_sync.incLocalTime(SC_ZERO_TIME);
+</SPAN><SPAN><A CLASS="LN" NAME="830">  830   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="831">  831   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="832">  832   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="833">  833   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_tr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_tr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_tr_tb</FONT></A>::sendTlmReadTransaction(sc_dt::uint64 addr, <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">char</SPAN> *dptr,
+</SPAN><SPAN><A CLASS="LN" NAME="834">  834   </A>  size_t dsize)
+</SPAN><SPAN><A CLASS="LN" NAME="835">  835   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="836">  836   </A>  sc_time delay = m_sync.getLocalTime();
+</SPAN><SPAN><A CLASS="LN" NAME="837">  837   </A>  tlm::tlm_generic_payload gp;
+</SPAN><SPAN><A CLASS="LN" NAME="838">  838   </A>  gp.set_address(addr);                <SPAN CLASS="CT">// memory address</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="839">  839   </A>  gp.set_command(tlm::TLM_READ_COMMAND);<SPAN CLASS="CT">// memory command</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="840">  840   </A>  gp.set_data_ptr(dptr);
+</SPAN><SPAN><A CLASS="LN" NAME="841">  841   </A>  gp.set_data_length(dsize);
+</SPAN><SPAN><A CLASS="LN" NAME="842">  842   </A>  m_socket-&gt;b_transport(gp, delay);
+</SPAN><SPAN><A CLASS="LN" NAME="843">  843   </A>  tlm::tlm_response_status gp_status = gp.get_response_status();
+</SPAN><SPAN><A CLASS="LN" NAME="844">  844   </A>  <SPAN CLASS="KW">if</SPAN> (gp_status != tlm::TLM_OK_RESPONSE) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="845">  845   </A>    m_utils.printErr(TLMG_ERR_TRANSPORT, <FONT COLOR="#1122ff">&quot;## ERROR: TLM read error.\n&quot;</FONT>);
+</SPAN><SPAN><A CLASS="LN" NAME="846">  846   </A>  <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="847">  847   </A>    m_utils.printMsg(TLMG_PRINT_TRANSPORT,
+</SPAN><SPAN><A CLASS="LN" NAME="848">  848   </A>                     <FONT COLOR="#1122ff">&quot;##\t TLM read  transaction to target component at address %#08x\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="849">  849   </A>                     (<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN>)addr);
+</SPAN><SPAN><A CLASS="LN" NAME="850">  850   </A>    <SPAN CLASS="KW">if</SPAN> (addr == (<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN>) COMSTAT_REG_ADDR) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="851">  851   </A>      m_utils.printMsg(TLMG_PRINT_CSR_TRANSPORT,
+</SPAN><SPAN><A CLASS="LN" NAME="852">  852   </A>                       <FONT COLOR="#1122ff">&quot;##\t (Command/Status reg data value = %#010x)\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="853">  853   </A>                       *((<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> *) dptr));
+</SPAN><SPAN><A CLASS="LN" NAME="854">  854   </A>    <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="855">  855   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="856">  856   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="857">  857   </A>  m_sync.setLocalTime(delay);
+</SPAN><SPAN><A CLASS="LN" NAME="858">  858   </A>  m_sync.incLocalTime(SC_ZERO_TIME);
+</SPAN><SPAN><A CLASS="LN" NAME="859">  859   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="860">  860   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="861">  861   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="862">  862   </A><SPAN CLASS="CT">// Command/Status Register</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="863">  863   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="864">  864   </A><A HREF="mw_support_tb_h.html#fcn_mw_csr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_csr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_csr_tb</FONT></A>::<A HREF="mw_support_tb_h.html#fcn_mw_csr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_csr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_csr_tb</FONT></A>(<A HREF="mw_support_tb_cpp.html#fcn_mw_utils_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_utils_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_utils_tb</FONT></A> &amp; utils, mw_sync_tb &amp; sync, <A HREF="mw_support_tb_h.html#fcn_mw_tr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_tr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_tr_tb</FONT></A> &amp; tr,
+</SPAN><SPAN><A CLASS="LN" NAME="865">  865   </A>                     sc_dt::uint64 csrAddr, sc_mutex &amp; mutex) :
+</SPAN><SPAN><A CLASS="LN" NAME="866">  866   </A>  m_utils(utils),
+</SPAN><SPAN><A CLASS="LN" NAME="867">  867   </A>  m_sync(sync),
+</SPAN><SPAN><A CLASS="LN" NAME="868">  868   </A>  m_tr(tr),
+</SPAN><SPAN><A CLASS="LN" NAME="869">  869   </A>  m_csrAddr(csrAddr),
+</SPAN><SPAN><A CLASS="LN" NAME="870">  870   </A>  m_mutex(mutex)
+</SPAN><SPAN><A CLASS="LN" NAME="871">  871   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="872">  872   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="873">  873   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="874">  874   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="875">  875   </A><A HREF="mw_support_tb_h.html#fcn_mw_csr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_csr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_csr_tb</FONT></A>::~<A HREF="mw_support_tb_h.html#fcn_mw_csr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_csr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_csr_tb</FONT></A>()
+</SPAN><SPAN><A CLASS="LN" NAME="876">  876   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="877">  877   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="878">  878   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="879">  879   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="880">  880   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_csr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_csr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_csr_tb</FONT></A>::<A NAME="fcn_readModifyWrite">readModifyWrite</A>(<A HREF="model_jxz_tlm_tb_def_h.html#type_mw_comstatreg_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comstatreg_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comstatreg_tb</FONT></A> bitMask, <A HREF="model_jxz_tlm_tb_def_h.html#type_mw_comstatreg_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comstatreg_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comstatreg_tb</FONT></A>
+</SPAN><SPAN><A CLASS="LN" NAME="881">  881   </A>  bitValue)
+</SPAN><SPAN><A CLASS="LN" NAME="882">  882   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="883">  883   </A>  m_mutex.lock();
+</SPAN><SPAN><A CLASS="LN" NAME="884">  884   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="885">  885   </A>  <SPAN CLASS="CT">// read comstat reg</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="886">  886   </A>  m_tr.sendTlmReadTransaction(m_csrAddr, (<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">char</SPAN> *) &amp; m_csreg, <SPAN CLASS="KW">sizeof</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="887">  887   </A>    (m_csreg));
+</SPAN><SPAN><A CLASS="LN" NAME="888">  888   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="889">  889   </A>  <SPAN CLASS="CT">// modify</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="890">  890   </A>  m_csreg &amp;= ~bitMask;                 <SPAN CLASS="CT">// zero out bits of interest</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="891">  891   </A>  m_csreg |= bitValue;                 <SPAN CLASS="CT">// set bits of interest</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="892">  892   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="893">  893   </A>  <SPAN CLASS="CT">// write</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="894">  894   </A>  m_tr.sendTlmWriteTransaction(m_csrAddr, (<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">char</SPAN> *) &amp; m_csreg, <SPAN CLASS="KW">sizeof</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="895">  895   </A>    (m_csreg));
+</SPAN><SPAN><A CLASS="LN" NAME="896">  896   </A>  m_mutex.unlock();
+</SPAN><SPAN><A CLASS="LN" NAME="897">  897   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="898">  898   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="899">  899   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="900">  900   </A><SPAN CLASS="DT">void</SPAN> <A HREF="mw_support_tb_h.html#fcn_mw_csr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_csr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_csr_tb</FONT></A>::<A NAME="fcn_writeCommand">writeCommand</A> (<A HREF="model_jxz_tlm_tb_def_h.html#type_mw_comstatreg_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comstatreg_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comstatreg_tb</FONT></A> bitValue)
+</SPAN><SPAN><A CLASS="LN" NAME="901">  901   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="902">  902   </A>  m_csreg = bitValue;
+</SPAN><SPAN><A CLASS="LN" NAME="903">  903   </A>  m_tr.sendTlmWriteTransaction(m_csrAddr, (<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">char</SPAN> *)&amp; m_csreg, <SPAN CLASS="KW">sizeof</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="904">  904   </A>    (m_csreg));
+</SPAN><SPAN><A CLASS="LN" NAME="905">  905   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="906">  906   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="907">  907   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="908">  908   </A><A HREF="model_jxz_tlm_tb_def_h.html#type_mw_comstatreg_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comstatreg_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comstatreg_tb</FONT></A> <A HREF="mw_support_tb_h.html#fcn_mw_csr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_csr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_csr_tb</FONT></A>::<A NAME="fcn_readStatus">readStatus</A>()
+</SPAN><SPAN><A CLASS="LN" NAME="909">  909   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="910">  910   </A>  m_tr.sendTlmReadTransaction(m_csrAddr, (<SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">char</SPAN> *)&amp;m_csreg, <SPAN CLASS="KW">sizeof</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="911">  911   </A>    (m_csreg));
+</SPAN><SPAN><A CLASS="LN" NAME="912">  912   </A>  <SPAN CLASS="KW">return</SPAN> m_csreg;
+</SPAN><SPAN><A CLASS="LN" NAME="913">  913   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="914">  914   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="915">  915   </A><SPAN CLASS="CT">// ------------------------------------------------------------------------</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="916">  916   </A><SPAN CLASS="CT">// e.g., looking for inbuf not empty or outbuf full</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="917">  917   </A><SPAN CLASS="CT">// pollForStatus((INBUF_EMPTY_BIT_MASK | OUTBUF_FULL_BIT_MASK),</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="918">  918   </A><SPAN CLASS="CT">//                OUTBUF_FULL_BIT_MASK, x,x,x)</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="919">  919   </A><SPAN CLASS="CT">//</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="920">  920   </A><SPAN CLASS="CT">// returns true on timeout, false if saw expected status.</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="921">  921   </A><SPAN CLASS="CT">//</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="922">  922   </A>bool <A HREF="mw_support_tb_h.html#fcn_mw_csr_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_csr_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_csr_tb</FONT></A>::<A NAME="fcn_pollForStatus">pollForStatus</A>(<A HREF="model_jxz_tlm_tb_def_h.html#type_mw_comstatreg_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comstatreg_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comstatreg_tb</FONT></A> bitMask,
+</SPAN><SPAN><A CLASS="LN" NAME="923">  923   </A>  <A HREF="model_jxz_tlm_tb_def_h.html#type_mw_comstatreg_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comstatreg_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comstatreg_tb</FONT></A> bitValue,
+</SPAN><SPAN><A CLASS="LN" NAME="924">  924   </A>  <A HREF="model_jxz_tlm_tb_def_h.html#type_mw_comstatreg_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comstatreg_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comstatreg_tb</FONT></A> &amp; comstatreg,
+</SPAN><SPAN><A CLASS="LN" NAME="925">  925   </A>  <SPAN CLASS="DT">int</SPAN> maxIters, sc_time iterWait)
+</SPAN><SPAN><A CLASS="LN" NAME="926">  926   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="927">  927   </A>  m_sync.syncToLocalTime();            <SPAN CLASS="CT">// ensure read current status</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="928">  928   </A>  m_csreg = <A HREF="mw_support_tb_cpp.html#fcn_readStatus" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_readStatus');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">readStatus</FONT></A>();
+</SPAN><SPAN><A CLASS="LN" NAME="929">  929   </A>  <A HREF="model_jxz_tlm_tb_def_h.html#type_mw_comstatreg_tb" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_mw_comstatreg_tb');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">mw_comstatreg_tb</FONT></A> pollResult = (m_csreg &amp; bitMask);
+</SPAN><SPAN><A CLASS="LN" NAME="930">  930   </A>  <SPAN CLASS="KW">while</SPAN> ((pollResult != bitValue) &amp;&amp; (maxIters &gt; 0) ) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="931">  931   </A>    m_sync.syncToLocalTime();
+</SPAN><SPAN><A CLASS="LN" NAME="932">  932   </A>    m_sync.syncToExplicitTime(iterWait);
+</SPAN><SPAN><A CLASS="LN" NAME="933">  933   </A>    m_csreg = <A HREF="mw_support_tb_cpp.html#fcn_readStatus" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_readStatus');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">readStatus</FONT></A>();
+</SPAN><SPAN><A CLASS="LN" NAME="934">  934   </A>    pollResult = m_csreg &amp; bitMask;
+</SPAN><SPAN><A CLASS="LN" NAME="935">  935   </A>    maxIters--;
+</SPAN><SPAN><A CLASS="LN" NAME="936">  936   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="937">  937   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="938">  938   </A>  m_sync.syncToLocalTime();
+</SPAN><SPAN><A CLASS="LN" NAME="939">  939   </A>  comstatreg = m_csreg;
+</SPAN><SPAN><A CLASS="LN" NAME="940">  940   </A>  <SPAN CLASS="KW">if</SPAN> (maxIters &lt;= 0) <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="941">  941   </A>    m_utils.printErr(TLMG_ERR_SYNC_TIMEOUT,
+</SPAN><SPAN><A CLASS="LN" NAME="942">  942   </A>                     <FONT COLOR="#1122ff">&quot;## ERROR: Timed out waiting for bitValue=%#010x. (bitMask=%#010x, masked csr=%#010x)\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="943">  943   </A>                     bitValue, bitMask, pollResult);
+</SPAN><SPAN><A CLASS="LN" NAME="944">  944   </A>    <SPAN CLASS="KW">return</SPAN> true;
+</SPAN><SPAN><A CLASS="LN" NAME="945">  945   </A>  <B>}</B> <SPAN CLASS="KW">else</SPAN> <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="946">  946   </A>    m_utils.printMsg(TLMG_PRINT_SYNC_TO_FUNCS,
+</SPAN><SPAN><A CLASS="LN" NAME="947">  947   </A>                     <FONT COLOR="#1122ff">&quot;##\t...saw polling return expected value. (bitValue=%#010x, bitMask=%#010x, masked csr=%#010x)\n&quot;</FONT>,
+</SPAN><SPAN><A CLASS="LN" NAME="948">  948   </A>                     bitValue, bitMask, pollResult);
+</SPAN><SPAN><A CLASS="LN" NAME="949">  949   </A>    <SPAN CLASS="KW">return</SPAN> false;
+</SPAN><SPAN><A CLASS="LN" NAME="950">  950   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="951">  951   </A><B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="952">  952   </A>
+</SPAN></PRE>
+</TD></TR></TABLE>
+</P>
+</BODY>
+</HTML>

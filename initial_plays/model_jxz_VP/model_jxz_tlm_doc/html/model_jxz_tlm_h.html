@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - model_jxz_tlm.h </TITLE>
+<STYLE> .LN { font-style: italic; color: #888888 } </STYLE>
+<STYLE> .CT { font-style: italic; color: #117755 } </STYLE>
+<STYLE> .PP { font-style: bold;   color: #992211 } </STYLE>
+<STYLE> .KW { font-style: bold;   color: #112266 } </STYLE>
+<STYLE> .DT { font-style: bold;   color: #112266 } </STYLE>
+<SCRIPT language="JavaScript" type="text/javascript">
+<!--
+function rtwHilite(aBlock,aParentSID) {
+ aParentSID = "";
+ try {
+    window.location.href="matlab: if ~isempty(which('private/rtwbindmodel')), rtwprivate rtwbindmodel '/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz.mdl' '/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_build' '', end; rtwprivate code2model "+aBlock+" "+aParentSID+";"
+ } catch (e) { 
+ }
+} // end rtwHilite
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="#eeeeee" TEXT="#1122aa" ONLOAD="if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window);} ">
+<P>
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
+<H4>File: <A HREF="file:///home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_VP/model_jxz_tlm/include/model_jxz_tlm.h" TARGET="rtwreport_document_frame">/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_VP/model_jxz_tlm/include/model_jxz_tlm.h</A></H4>
+<PRE id="RTWcode">
+<SPAN><A CLASS="LN" NAME="1">    1   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">ifndef</SPAN> _model_jxz_tlm_
+</SPAN><SPAN><A CLASS="LN" NAME="2">    2   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> _model_jxz_tlm_
+</SPAN><SPAN><A CLASS="LN" NAME="3">    3   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&quot;tlm.h&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="4">    4   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&quot;tlm_utils/simple_target_socket.h&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="5">    5   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&quot;tlm_utils/tlm_quantumkeeper.h&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="6">    6   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&quot;tlm_utils/peq_with_get.h&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="7">    7   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&quot;model_jxz.h&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="8">    8   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&quot;model_jxz_tlm_def.h&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="9">    9   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&quot;mw_support.h&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="10">   10   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&quot;mw_backdoorcfg_if.h&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="11">   11   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="12">   12   </A>using <A NAME="var_namespace">namespace</A> <A HREF="model_jxz_tlm_cpp.html#var_std" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_std');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">std</FONT></A>;
+</SPAN><SPAN><A CLASS="LN" NAME="13">   13   </A>class model_jxz_tlm
+</SPAN><SPAN><A CLASS="LN" NAME="14">   14   </A>  : <A HREF="mw_support_tb_h.html#fcn_public" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_public');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">public</FONT></A> sc_core::sc_module, <A HREF="mw_support_tb_h.html#fcn_public" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_public');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">public</FONT></A> mw_backdoorcfg_IF
+</SPAN><SPAN><A CLASS="LN" NAME="15">   15   </A><B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="16">   16   </A> <A HREF="mw_support_tb_h.html#fcn_public" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_public');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">public</FONT></A>:
+</SPAN><SPAN><A CLASS="LN" NAME="17">   17   </A>  <SPAN CLASS="KW">enum</SPAN> eModeType
+</SPAN><SPAN><A CLASS="LN" NAME="18">   18   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="19">   19   </A>    MANUAL,
+</SPAN><SPAN><A CLASS="LN" NAME="20">   20   </A>    <A NAME="var_AUTO">AUTO</A>
+</SPAN><SPAN><A CLASS="LN" NAME="21">   21   </A>  <B>}</B>;
+</SPAN><SPAN><A CLASS="LN" NAME="22">   22   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="23">   23   </A>  <SPAN CLASS="DT">static</SPAN> <SPAN CLASS="DT">const</SPAN> <SPAN CLASS="DT">int</SPAN> BUSWIDTHBYTE = 4;
+</SPAN><SPAN><A CLASS="LN" NAME="24">   24   </A>  SC_HAS_PROCESS(model_jxz_tlm);
+</SPAN><SPAN><A CLASS="LN" NAME="25">   25   </A>  model_jxz_tlm( sc_core::sc_module_name module_name, eTimingType DefaultTiming =
+</SPAN><SPAN><A CLASS="LN" NAME="26">   26   </A>                <A HREF="mw_backdoorcfg_if_h.html#var_TIMED" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_TIMED');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">TIMED</FONT></A>, eModeType InputDefaultMode = <A HREF="model_jxz_tlm_h.html#var_AUTO" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_AUTO');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">AUTO</FONT></A>, eModeType
+</SPAN><SPAN><A CLASS="LN" NAME="27">   27   </A>                OutputDefaultMode = <A HREF="model_jxz_tlm_h.html#var_AUTO" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_AUTO');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">AUTO</FONT></A>);
+</SPAN><SPAN><A CLASS="LN" NAME="28">   28   </A>  ~model_jxz_tlm(<SPAN CLASS="DT">void</SPAN>);
+</SPAN><SPAN><A CLASS="LN" NAME="29">   29   </A>  tlm_utils::simple_target_socket&lt;model_jxz_tlm,BUSWIDTHBYTE*8&gt; m_tlm2_tsocket;
+</SPAN><SPAN><A CLASS="LN" NAME="30">   30   </A>  sc_core::sc_out&lt;bool&gt; m_int_op;      <SPAN CLASS="CT">// interrupt port; active high</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="31">   31   </A>  virtual <SPAN CLASS="DT">void</SPAN> SetTimingParam(eTimingType Type)
+</SPAN><SPAN><A CLASS="LN" NAME="32">   32   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="33">   33   </A>    m_current_timing = Type;
+</SPAN><SPAN><A CLASS="LN" NAME="34">   34   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="35">   35   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="36">   36   </A>  ;
+</SPAN><SPAN><A CLASS="LN" NAME="37">   37   </A>  virtual eTimingType GetTimingParam(<SPAN CLASS="DT">void</SPAN>)
+</SPAN><SPAN><A CLASS="LN" NAME="38">   38   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="39">   39   </A>    <SPAN CLASS="KW">return</SPAN> m_current_timing;
+</SPAN><SPAN><A CLASS="LN" NAME="40">   40   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="41">   41   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="42">   42   </A>  ;
+</SPAN><SPAN><A CLASS="LN" NAME="43">   43   </A> private:
+</SPAN><SPAN><A CLASS="LN" NAME="44">   44   </A>  sc_core::sc_event_queue m_start_event;
+</SPAN><SPAN><A CLASS="LN" NAME="45">   45   </A>  tlm_utils::peq_with_get&lt;<SPAN CLASS="DT">const</SPAN> bool&gt; m_trigint;
+</SPAN><SPAN><A CLASS="LN" NAME="46">   46   </A>  <SPAN CLASS="DT">const</SPAN> bool m_trig, m_ack;
+</SPAN><SPAN><A CLASS="LN" NAME="47">   47   </A>  <SPAN CLASS="DT">void</SPAN> <A HREF="model_jxz_tlm_cpp.html#fcn_intMethod" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_intMethod');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">intMethod</FONT></A> (<SPAN CLASS="DT">void</SPAN>);
+</SPAN><SPAN><A CLASS="LN" NAME="48">   48   </A>  <SPAN CLASS="DT">void</SPAN> <A HREF="model_jxz_tlm_cpp.html#fcn_reg_init" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_reg_init');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">reg_init</FONT></A>(<SPAN CLASS="DT">void</SPAN>);
+</SPAN><SPAN><A CLASS="LN" NAME="49">   49   </A>  <A HREF="model_jxz_types_h.html#type_RT_MODEL_model_jxz" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_RT_MODEL_model_jxz');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">RT_MODEL_model_jxz</FONT></A> m_model_jxz_M;
+</SPAN><SPAN><A CLASS="LN" NAME="50">   50   </A>  <A HREF="rtwtypes_h.html#type_uint32_T" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_uint32_T');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">uint32_T</FONT></A> m_comstat_reg;
+</SPAN><SPAN><A CLASS="LN" NAME="51">   51   </A>  <A HREF="rtwtypes_h.html#type_uint32_T" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_uint32_T');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">uint32_T</FONT></A> m_testset_reg;
+</SPAN><SPAN><A CLASS="LN" NAME="52">   52   </A>  eTimingType m_current_timing;
+</SPAN><SPAN><A CLASS="LN" NAME="53">   53   </A>  eModeType m_input_default_mode;
+</SPAN><SPAN><A CLASS="LN" NAME="54">   54   </A>  eModeType m_output_default_mode;
+</SPAN><SPAN><A CLASS="LN" NAME="55">   55   </A>  inline sc_core::sc_time AssertDelay(sc_core::sc_time delay)
+</SPAN><SPAN><A CLASS="LN" NAME="56">   56   </A>  <B>{</B>
+</SPAN><SPAN><A CLASS="LN" NAME="57">   57   </A>    <SPAN CLASS="KW">return</SPAN> (m_current_timing==UNTIMED)?sc_core::sc_time(0,sc_core::SC_NS):delay;
+</SPAN><SPAN><A CLASS="LN" NAME="58">   58   </A>  <B>}</B>
+</SPAN><SPAN><A CLASS="LN" NAME="59">   59   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="60">   60   </A>  ;
+</SPAN><SPAN><A CLASS="LN" NAME="61">   61   </A>  <SPAN CLASS="DT">void</SPAN> <A HREF="model_jxz_tlm_cpp.html#fcn_entry_b_transport" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_entry_b_transport');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">entry_b_transport</FONT></A> (tlm::tlm_generic_payload &amp;gp, sc_core::sc_time &amp;
+</SPAN><SPAN><A CLASS="LN" NAME="62">   62   </A>    delay_time);
+</SPAN><SPAN><A CLASS="LN" NAME="63">   63   </A>  <SPAN CLASS="DT">unsigned</SPAN> <SPAN CLASS="DT">int</SPAN> <A HREF="model_jxz_tlm_cpp.html#fcn_entry_transport_dbg" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_entry_transport_dbg');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">entry_transport_dbg</FONT></A> (tlm::tlm_generic_payload &amp;gp);
+</SPAN><SPAN><A CLASS="LN" NAME="64">   64   </A>  <SPAN CLASS="DT">void</SPAN> <A HREF="model_jxz_tlm_cpp.html#fcn_targetThread" ONCLICK="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'var_targetThread');" TARGET="rtwreport_document_frame"><FONT COLOR="#1122aa">targetThread</FONT></A>(<SPAN CLASS="DT">void</SPAN>);
+</SPAN><SPAN><A CLASS="LN" NAME="65">   65   </A><B>}</B>;
+</SPAN><SPAN><A CLASS="LN" NAME="66">   66   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="67">   67   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">endif</SPAN>                                 <SPAN CLASS="CT">/* _model_jxz_tlm_ */</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="68">   68   </A>
+</SPAN></PRE>
+</TD></TR></TABLE>
+</P>
+</BODY>
+</HTML>

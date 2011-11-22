@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<TITLE>RTW Report - model_jxz_tlm_def.h </TITLE>
+<STYLE> .LN { font-style: italic; color: #888888 } </STYLE>
+<STYLE> .CT { font-style: italic; color: #117755 } </STYLE>
+<STYLE> .PP { font-style: bold;   color: #992211 } </STYLE>
+<STYLE> .KW { font-style: bold;   color: #112266 } </STYLE>
+<STYLE> .DT { font-style: bold;   color: #112266 } </STYLE>
+<SCRIPT language="JavaScript" type="text/javascript">
+<!--
+function rtwHilite(aBlock,aParentSID) {
+ aParentSID = "";
+ try {
+    window.location.href="matlab: if ~isempty(which('private/rtwbindmodel')), rtwprivate rtwbindmodel '/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz.mdl' '/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_build' '', end; rtwprivate code2model "+aBlock+" "+aParentSID+";"
+ } catch (e) { 
+ }
+} // end rtwHilite
+//-->
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="#eeeeee" TEXT="#1122aa" ONLOAD="if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window);} ">
+<P>
+<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="6" WIDTH="100%" HEIGHT="100%"><TR><TD WIDTH="100%" VALIGN="top" BGCOLOR="#ffffff">
+<H4>File: <A HREF="file:///home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_VP/model_jxz_tlm/include/model_jxz_tlm_def.h" TARGET="rtwreport_document_frame">/home/student/jxzhang/workspace/simulink/model_to_c/model_jxz_VP/model_jxz_tlm/include/model_jxz_tlm_def.h</A></H4>
+<PRE id="RTWcode">
+<SPAN><A CLASS="LN" NAME="1">    1   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">ifndef</SPAN> _model_jxz_tlm_def_
+</SPAN><SPAN><A CLASS="LN" NAME="2">    2   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> _model_jxz_tlm_def_
+</SPAN><SPAN><A CLASS="LN" NAME="3">    3   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">include</SPAN> <FONT COLOR="#992211">&quot;rtwtypes.h&quot;</FONT>
+</SPAN><SPAN><A CLASS="LN" NAME="4">    4   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="5">    5   </A><SPAN CLASS="CT">//========= INPUT REGISTER =========</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="6">    6   </A><SPAN CLASS="CT">//Number of input register</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="7">    7   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> model_jxz_IN_REG_NUM           0
+</SPAN><SPAN><A CLASS="LN" NAME="8">    8   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="9">    9   </A><SPAN CLASS="CT">//========= OUTPUT REGISTER =========</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="10">   10   </A><SPAN CLASS="CT">//Number of output register</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="11">   11   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> model_jxz_OUT_REG_NUM          0
+</SPAN><SPAN><A CLASS="LN" NAME="12">   12   </A>
+</SPAN><SPAN><A CLASS="LN" NAME="13">   13   </A><SPAN CLASS="CT">//========= COMMAND/STATUS REGISTER =========</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="14">   14   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESET_BIT_MASK                 0x01                      <SPAN CLASS="CT">//bit 0 write only</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="15">   15   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> START_BIT_MASK                 0x02                      <SPAN CLASS="CT">//bit 1 write only</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="16">   16   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> INT_STAT_BIT_MASK              0x04                      <SPAN CLASS="CT">//bit 2 read only</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="17">   17   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> INT_DIS_BIT_MASK               0x08                      <SPAN CLASS="CT">//bit 3 read/write</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="18">   18   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED4_BIT_MASK             0x10                      <SPAN CLASS="CT">//bit 4 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="19">   19   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED5_BIT_MASK             0x20                      <SPAN CLASS="CT">//bit 5 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="20">   20   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED6_BIT_MASK             0x40                      <SPAN CLASS="CT">//bit 6 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="21">   21   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED7_BIT_MASK             0x80                      <SPAN CLASS="CT">//bit 7 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="22">   22   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> INPUT_PUSH_BIT_MASK            0x0100                    <SPAN CLASS="CT">//bit 8 write only</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="23">   23   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> INPUT_AUTMOD_BIT_MASK          0x0200                    <SPAN CLASS="CT">//bit 9 read/write</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="24">   24   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED10_BIT_MASK            0x0400                    <SPAN CLASS="CT">//bit 10 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="25">   25   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED11_BIT_MASK            0x0800                    <SPAN CLASS="CT">//bit 11 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="26">   26   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> OUTPUT_PULL_BIT_MASK           0x1000                    <SPAN CLASS="CT">//bit 12 write only</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="27">   27   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> OUTPUT_AUTMOD_BIT_MASK         0x2000                    <SPAN CLASS="CT">//bit 13 read/write</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="28">   28   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED14_BIT_MASK            0x4000                    <SPAN CLASS="CT">//bit 14 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="29">   29   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED15_BIT_MASK            0x8000                    <SPAN CLASS="CT">//bit 15 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="30">   30   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> INBUF_EMPTY_BIT_MASK           0x010000                  <SPAN CLASS="CT">//bit 16 read only</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="31">   31   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> INBUF_FULL_BIT_MASK            0x020000                  <SPAN CLASS="CT">//bit 17 read only</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="32">   32   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> INBUF_UNFLW_BIT_MASK           0x040000                  <SPAN CLASS="CT">//bit 18 read/write</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="33">   33   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> INBUF_OVFLW_BIT_MASK           0x080000                  <SPAN CLASS="CT">//bit 19 read/write</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="34">   34   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> OUTBUF_EMPTY_BIT_MASK          0x100000                  <SPAN CLASS="CT">//bit 20 read only</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="35">   35   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> OUTBUF_FULL_BIT_MASK           0x200000                  <SPAN CLASS="CT">//bit 21 read only</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="36">   36   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> OUTBUF_UNFLW_BIT_MASK          0x400000                  <SPAN CLASS="CT">//bit 22 read/write</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="37">   37   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> OUTBUF_OVFLW_BIT_MASK          0x800000                  <SPAN CLASS="CT">//bit 23 read/write</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="38">   38   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED24_BIT_MASK            0x01000000                <SPAN CLASS="CT">//bit 24 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="39">   39   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED25_BIT_MASK            0x02000000                <SPAN CLASS="CT">//bit 25 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="40">   40   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED26_BIT_MASK            0x04000000                <SPAN CLASS="CT">//bit 26 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="41">   41   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED27_BIT_MASK            0x08000000                <SPAN CLASS="CT">//bit 27 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="42">   42   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED28_BIT_MASK            0x10000000                <SPAN CLASS="CT">//bit 28 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="43">   43   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED29_BIT_MASK            0x20000000                <SPAN CLASS="CT">//bit 29 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="44">   44   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED30_BIT_MASK            0x40000000                <SPAN CLASS="CT">//bit 30 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="45">   45   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> RESERVED31_BIT_MASK            0x80000000                <SPAN CLASS="CT">//bit 31 reserved</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="46">   46   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> WRITEONLY_BIT_MASK             (RESET_BIT_MASK | START_BIT_MASK | INPUT_PUSH_BIT_MASK | OUTPUT_PULL_BIT_MASK)
+</SPAN><SPAN><A CLASS="LN" NAME="47">   47   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">define</SPAN> READONLY_BIT_MASK              (INT_STAT_BIT_MASK | INBUF_EMPTY_BIT_MASK | INBUF_FULL_BIT_MASK | OUTBUF_EMPTY_BIT_MASK | OUTBUF_FULL_BIT_MASK)
+</SPAN><SPAN><A CLASS="LN" NAME="48">   48   </A><FONT COLOR="#992211">#</FONT><SPAN CLASS="PP">endif</SPAN>                                 <SPAN CLASS="CT">/* _model_jxz_tlm_def_ */</SPAN>
+</SPAN><SPAN><A CLASS="LN" NAME="49">   49   </A>
+</SPAN></PRE>
+</TD></TR></TABLE>
+</P>
+</BODY>
+</HTML>
